@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 
 
 import '../models/menu_router.dart';
-import '../pages/bloc.dart';
 import '../pages/pages.dart';
-import '../pages/provider_page.dart';
 
 class AppRoute{
-
 static const initialRoute= '/';
 static final menuOptions= < MenuRouter>[
 // MenuRouter(route: '/', icon: Icons.home, name: 'Inicio', screen: HomePage()),
@@ -20,7 +17,8 @@ MenuRouter(route: 'sqlite', icon: Icons.accessibility, name: 'sqlite', screen: A
 MenuRouter(route: 'container', icon: Icons.account_box, name: 'container animation', screen: AnimatedScreen()),
 MenuRouter(route: 'textinput', icon: Icons.input_rounded, name: 'Text field', screen: TextFieldScreen()),
 MenuRouter(route: 'sliderscreen', icon: Icons.slideshow_outlined, name: 'slider and checkbock', screen: SliderScreen()),
-MenuRouter(route: 'listviewbuilder', icon: Icons.list_alt_outlined, name: 'listview builder', screen: ListviewBuilder())
+MenuRouter(route: 'listviewbuilder', icon: Icons.list_alt_outlined, name: 'listview builder', screen: ListviewBuilder()),
+MenuRouter(name: 'infinity Scroll', icon: Icons.window, screen: InfinityScroll(), route: 'infinityScroll')
 ];
 static Route<dynamic>? onGenerateRoute(RouteSettings setting){
 return MaterialPageRoute(builder: (context)=> AlertPage());

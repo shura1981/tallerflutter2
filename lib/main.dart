@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'src/models/heroes.dart';
-import 'src/models/slider_provider.dart';
-import 'src/models/themechanger.dart';
-import 'src/models/villanos.dart';
+// import 'src/models/heroes.dart';
+// import 'src/models/slider_provider.dart';
+// import 'src/models/themechanger.dart';
+// import 'src/models/villanos.dart';
+import 'src/models/models.dart';
 import 'src/routes/index.dart';
 import 'theme/app_theme.dart';
 

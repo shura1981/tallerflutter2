@@ -14,16 +14,13 @@ class ListviewBuilder extends StatelessWidget {
         //   child: ItemSliderScreem(tag, img),
         // );
 
-  return SlideTransition(
-              position: Tween<Offset>(
-  begin: const Offset(0.0, 0.0),
-    end: Offset.zero,
-
-              ).animate(animation),
-           child: ItemSliderScreem(tag, img),
-            );
-
-
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0.0, 0.0),
+            end: Offset.zero,
+          ).animate(animation),
+          child: ItemSliderScreem(tag, img),
+        );
       },
     );
   }
@@ -39,12 +36,13 @@ class ListviewBuilder extends StatelessWidget {
         child: ListView.builder(
             itemCount: 10,
             itemBuilder: (BuildContext context, index) {
-            
               return GestureDetector(
                 onTap: () {
                   // final route = MaterialPageRoute(builder: (context)=> ItemSliderScreem('imagen${index + 1}'));
-                    String image= 'https://picsum.photos/500/300?image=${index + 1}';
-                  Navigator.of(context).push( _createRoute('imagen${index + 1}', image),
+                  String image =
+                      'https://picsum.photos/500/300?image=${index + 1}';
+                  Navigator.of(context).push(
+                    _createRoute('imagen${index + 1}', image),
                   );
                   // Navigator.pushNamed(context, 'itemslider');
                   print('hola');
@@ -56,7 +54,8 @@ class ListviewBuilder extends StatelessWidget {
                       height: 300,
                       fit: BoxFit.cover,
                       placeholder: AssetImage('assets/jar-loading.gif'),
-                      image: NetworkImage( 'https://picsum.photos/500/300?image=${index + 1}'  )),
+                      image: NetworkImage(
+                          'https://picsum.photos/500/300?image=${index + 1}')),
                 ),
               );
             }),

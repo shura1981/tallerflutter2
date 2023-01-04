@@ -21,7 +21,7 @@ class AppTheme {
             shape: const StadiumBorder(),
             elevation: 0)),
     inputDecorationTheme: InputDecorationTheme(
-        focusColor: Colors.white,
+      focusColor: Colors.white,
       filled: true,
       fillColor: Colors.grey.shade200,
       enabledBorder: OutlineInputBorder(

@@ -11,8 +11,8 @@ class Avatars extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(right: 5),
           child: CircleAvatar(
-            backgroundImage: NetworkImage(
-                'https://lh3.googleusercontent.com/a-/AOh14GjR7gEsaI7P2twKde42cKHh3FJrb865iCesZPz8'),
+            backgroundColor: Color.fromARGB(255, 188, 24, 119),
+            child: Text('SR', style: TextStyle(color: Colors.white),),
           ),
         )
       ]),
