@@ -11,3 +11,4 @@ export 'package:taller2/src/pages/item_sliderscreen.dart';
 export 'package:taller2/src/pages/bloc.dart';
 export 'package:taller2/src/pages/provider_page.dart';
 export 'package:taller2/src/pages/infinity_scroll.dart';
+export 'package:taller2/src/pages/gridviewpage.dart';

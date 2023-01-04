@@ -18,7 +18,8 @@ MenuRouter(route: 'container', icon: Icons.account_box, name: 'container animati
 MenuRouter(route: 'textinput', icon: Icons.input_rounded, name: 'Text field', screen: TextFieldScreen()),
 MenuRouter(route: 'sliderscreen', icon: Icons.slideshow_outlined, name: 'slider and checkbock', screen: SliderScreen()),
 MenuRouter(route: 'listviewbuilder', icon: Icons.list_alt_outlined, name: 'listview builder', screen: ListviewBuilder()),
-MenuRouter(name: 'infinity Scroll', icon: Icons.window, screen: InfinityScroll(), route: 'infinityScroll')
+MenuRouter(name: 'infinity Scroll', icon: Icons.window, screen: InfinityScroll(), route: 'infinityScroll'),
+MenuRouter(route: 'grid', icon: Icons.grid_3x3_outlined, name: 'Grid view', screen: GridViewGallery())
 ];
 static Route<dynamic>? onGenerateRoute(RouteSettings setting){
 return MaterialPageRoute(builder: (context)=> AlertPage());
