@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:photo_view/photo_view.dart';
 
 class GridViewGallery extends StatefulWidget {
   const GridViewGallery({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class _GridViewGalleryState extends State<GridViewGallery> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(title: Text('Gallery')),
       // backgroundColor: Colors.pink,
       body: Gallery(),
@@ -63,18 +65,25 @@ class _GalleryState extends State<Gallery> {
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
       itemBuilder: (context, index) {
         String image = 'https://picsum.photos/500/300?image=$index';
-        return  InkWell(
+        return InkWell(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute<void>( builder: (BuildContext context) => FullScreenDialog(image: image), // fullscreenDialog: true, 
-            ), );
-
+            Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => FullScreenDialog(
+                    image: image, tag: 'img$index'), // fullscreenDialog: true,
+              ),
+            );
           },
-          child: FadeInImage(
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.cover,
-              placeholder: AssetImage('assets/jar-loading.gif'),
-              image: Image.network(image).image),
+          child: Hero(
+            tag: 'img$index',
+            child: FadeInImage(
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover,
+                placeholder: AssetImage('assets/jar-loading.gif'),
+                image: Image.network(image).image),
+          ),
         );
       },
       itemCount: ids.length,
@@ -84,21 +93,23 @@ class _GalleryState extends State<Gallery> {
 
 class FullScreenDialog extends StatelessWidget {
   String image;
-   FullScreenDialog(
-   { Key? key,
- required this.image,}
-  ) : super(key: key);
-  
+  String tag;
+  FullScreenDialog({
+    Key? key,
+    required this.image,
+    required this.tag,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Color.fromARGB(255, 0, 0, 0) ,
+      backgroundColor: Color.fromARGB(255, 0, 0, 0),
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 0, 0, 0),
       ),
-      body:  Center(
-        child: Image.network(image),
+      body: Center(
+        child: PhotoView(imageProvider: Image.network(image).image,
+         heroAttributes: PhotoViewHeroAttributes(tag: tag),),
       ),
     );
   }

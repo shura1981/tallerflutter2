@@ -34,12 +34,14 @@ class _InfinityScrollState extends State<InfinityScroll> {
             return ListView.builder(
               itemBuilder: ((context, index) {
                 final item = lista[index];
-              var f = new NumberFormat('###,###', 'en_US');
+                var f = new NumberFormat('###,###', 'en_US');
+                print(item.image);
+
                 return ListTile(
                   leading: CircleAvatar(
                       backgroundImage: Image.network(item.image).image),
                   title: Text(item.producto),
-                  subtitle: Text( f.format(item.valor)),
+                  subtitle: Text(f.format(item.valor)),
                 );
               }),
               itemCount: lista.length,
