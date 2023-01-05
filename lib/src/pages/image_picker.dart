@@ -20,7 +20,7 @@ class _PickerImageState extends State<PickerImage> {
             showImage(),
             ElevatedButton(
                 onPressed: () {
-                  pickImageFromGallery(ImageSource.gallery);
+                  pickImageFromGallery(ImageSource.camera);
                 },
                 child: Text('Select image from gallery'))
           ],
@@ -35,7 +35,7 @@ class _PickerImageState extends State<PickerImage> {
       builder: (context, snap) {
         if (snap.connectionState == ConnectionState.done && snap.data != null) {
           return Image.file(
-            snap.data as File,
+           File( snap.data!.path) ,
             width: 300,
             height: 300,
           );
@@ -54,5 +54,8 @@ class _PickerImageState extends State<PickerImage> {
 
   void pickImageFromGallery(ImageSource source) {
     imageFile = ImagePicker().pickImage(source: source) ;
+    setState(() {
+      
+    });
   }
 }
