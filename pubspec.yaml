@@ -40,7 +40,8 @@ dependencies:
   photo_view:
   http:
   intl: ^0.18.0
-  
+  image_picker:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
