@@ -3,8 +3,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:taller2/src/providers/shared_preferences.dart';
 
 import '../../providers/storage.dart';
+import '../../providers/storagefile.dart';
 
 class Todo {
   String what;
@@ -32,7 +34,8 @@ class _TodoListAppState extends State<TodoListApp> {
   List<Todo> _todos = [];
   bool isLoad = false;
   final storage = LocalStorage();
-
+  final preferences = StorePreferences();
+  final storageFile = StorageFile();
   @override
   void initState() {
     _getTodos();
@@ -133,30 +136,25 @@ class _TodoListAppState extends State<TodoListApp> {
 
   Future<List<Todo>> _readTodos() async {
     try {
-      Directory dir = await getApplicationDocumentsDirectory();
-      File file = File('${dir.path}/todos.json');
-      final isExist = await file.exists();
-      print('Existe $isExist');
+      final load = await storageFile.getvalue();
       List<Todo> todos = [];
-      if (isExist) {
-        List json = jsonDecode(await file.readAsString());
+      if (load != null) {
+        List json = jsonDecode(load);
         for (var item in json) {
           todos.add(Todo.fromJson(item));
         }
       } else {
         _writeTodos();
       }
-
       return todos;
     } catch (e) {
       rethrow;
     }
   }
 
-    Future<List<Todo>> _readTodosFromStorage() async {
+  Future<List<Todo>> _readTodosFromStorage() async {
     try {
-   
-      final isExist = await  storage.getValue('todo') ?? '';
+      final isExist = await storage.getValue('todo') ?? '';
       print('Existe $isExist');
       List<Todo> todos = [];
       if (isExist.isNotEmpty) {
@@ -174,44 +172,75 @@ class _TodoListAppState extends State<TodoListApp> {
     }
   }
 
+  Future<List<Todo>> _readTodosFromPreferences() async {
+    try {
+      final isExist = await preferences.getValue('todo') ?? '';
+      print('Existe $isExist');
+      List<Todo> todos = [];
+      if (isExist.isNotEmpty) {
+        List json = jsonDecode(await storage.getValue('todo') as String);
+        for (var item in json) {
+          todos.add(Todo.fromJson(item));
+        }
+      } else {
+        _writeTodosToPreferences();
+      }
+
+      return todos;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<String> _writeTodos() async {
     try {
-      Directory dir = await getApplicationDocumentsDirectory();
-      File file = File('${dir.path}/todos.json');
       String jsonText = jsonEncode(_todos);
-      await file.writeAsString(jsonText);
-      return 'Guardado con éxito';
+     return await storageFile.write(jsonText);
     } catch (e) {
       return 'ocurrió un error: ' + e.toString();
     }
   }
 
-
-Future<String> _writeTodosToStorage() async {
+  Future<String> _writeTodosToStorage() async {
     try {
       String jsonText = jsonEncode(_todos);
-      await  storage.write('todo',jsonText);
+      await storage.write('todo', jsonText);
       return 'Guardado con éxito';
     } catch (e) {
       return 'ocurrió un error: ' + e.toString();
     }
   }
 
+  Future<String> _writeTodosToPreferences() async {
+    try {
+      String jsonText = jsonEncode(_todos);
+      await preferences.write('todo', jsonText);
+      return 'Guardado con éxito';
+    } catch (e) {
+      return 'ocurrió un error: ' + e.toString();
+    }
+  }
 
   @override
   void setState(VoidCallback fn) {
     // TODO: implement setState
     super.setState(fn);
-    // _writeTodos().then((value) => print(value)).catchError((e) => print(e));
-      _writeTodosToStorage().then((value) => print(value)).catchError((e) => print(e));
+    _writeTodos().then((value) => print(value)).catchError((e) => print(e));
+    // _writeTodosToStorage()
+    //     .then((value) => print(value))
+    //     .catchError((e) => print(e));
+    // _writeTodosToPreferences()
+    //     .then((value) => print(value))
+    //     .catchError((e) => print(e));
   }
 
   void _getTodos() async {
     try {
       isLoad = true;
       super.setState(() {});
-      // _todos = await _readTodos();
-        _todos = await _readTodosFromStorage();
+      _todos = await _readTodos();
+      // _todos = await _readTodosFromStorage();
+      // _todos = await _readTodosFromPreferences();
     } catch (e) {
       print(e);
     } finally {

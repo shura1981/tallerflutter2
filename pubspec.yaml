@@ -31,13 +31,14 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_secure_storage: ^7.0.1
-  http:
-  image_picker:
+  http: null
+  image_picker: null
   intl: ^0.18.0
   path_provider: ^2.0.11
-  photo_view:
+  photo_view: null
   provider: ^6.0.2
-  sqflite:
+  shared_preferences: ^2.0.15
+  sqflite: null
 
 dev_dependencies:
   flutter_lints: ^1.0.0
