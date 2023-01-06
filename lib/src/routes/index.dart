@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 
 import '../models/menu_router.dart';
 import '../pages/pages.dart';
+import '../talleres/pages/pages.dart' show HomeTalleres;
 
 class AppRoute{
 static const initialRoute= '/';
 static final menuOptions= < MenuRouter>[
-// MenuRouter(route: '/', icon: Icons.home, name: 'Inicio', screen: HomePage()),
+MenuRouter(route: 'talleres', icon: Icons.list, name: 'Talleres', screen: HomeTalleres()),
 MenuRouter(route: 'alert', icon: Icons.add_alert, name: 'alert', screen: AlertPage()),
 MenuRouter(route: 'avatar', icon: Icons.home, name: 'avatar', screen: Avatars()),
 MenuRouter(route: 'card', icon: Icons.folder_open, name: 'card', screen: CardPage()),

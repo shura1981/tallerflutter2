@@ -7,8 +7,8 @@ import '../models/heroes.dart';
 class Botones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _heroe = Provider.of<HeroresInfo>(context);
-        final _villano = Provider.of<VillanosInfo>(context);
+    final _heroe = Provider.of<HeroresInfo>(context, listen: false);
+        final _villano = Provider.of<VillanosInfo>(context, listen: false);
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
