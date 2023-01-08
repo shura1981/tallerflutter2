@@ -59,6 +59,7 @@ flutter:
   assets:
     - data/menu_opts.json
     - data/productos.json
+    - data/ciudades.json
     - assets/
     - assets/database/megastore.db
   # An image asset can refer to one or more resolution-specific "variants", see
