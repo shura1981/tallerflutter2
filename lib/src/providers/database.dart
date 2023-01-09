@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'dart:typed_data';
+
 import 'package:flutter/services.dart';
 
 class Data {
@@ -21,7 +21,7 @@ class Data {
 
   _opendb() async {
     var databasesPath = await getDatabasesPath();
-    var path = join(databasesPath, "demo_asset_example.db");
+    var path = join(databasesPath, "megastore.db");
     // print("ruta:  " +databasesPath);
 // Check if the database exists
     var exists = await databaseExists(path);
