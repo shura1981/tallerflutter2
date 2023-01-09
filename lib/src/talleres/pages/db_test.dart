@@ -1,24 +1,10 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 // WidgetsFlutterBinding.ensureInitialized();
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: AppDb(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
 
 class AppDb extends StatefulWidget {
   AppDb({Key? key}) : super(key: key);
@@ -29,6 +15,7 @@ class AppDb extends StatefulWidget {
 
 class _AppDbState extends State<AppDb> {
   late HelperDb _helperDb;
+  List<Dog> delete = [];
   @override
   initState() {
     _helperDb = HelperDb();
@@ -51,26 +38,73 @@ class _AppDbState extends State<AppDb> {
           future: _helperDb.dogs(),
           builder: (context, AsyncSnapshot<List<Dog>> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.data!.isEmpty) {
+              if (snapshot.data == null || snapshot.data!.isEmpty) {
                 return Center(child: Text('Vacio'));
               } else {
                 final item = snapshot.data;
-                return ListDogs(item: item);
+                return ListDogs(
+                  item: item,
+                  onTapDog: (value) {
+                    print(value);
+                    _helperDb.updateDog(value).then((value) => setState(() {}));
+                  },
+                  onTapDeleteDog: (Dog dog) {
+                    delete.add(dog);
+                    _helperDb.deleteDog(dog.id).then((value) {
+                      ScaffoldMessenger.of(context)
+                        ..clearSnackBars()
+                        ..showSnackBar(SnackBar(
+                            content: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                                onPressed: () async {
+                                  ScaffoldMessenger.of(context)
+                                      .clearSnackBars();
+                                  for (var dog in delete) {
+                                    await _helperDb.insertDog(dog);
+                                  }
+                                  setState(() {});
+                                },
+                                child: Text('Deshacer')),
+                            Text('¡Item eliminado!'),
+                          ],
+                        ))).closed.then((value) => delete.remove(dog));
+                    });
+                  },
+                );
               }
             }
             return Center(child: CircularProgressIndicator());
           }),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            // _helperDb.test().then((value) => setState(() {}));
+            ScaffoldMessenger.of(context).clearSnackBars();
             Navigator.push<Dog>(
               context,
               MaterialPageRoute<Dog>(
                 builder: (BuildContext context) =>
-                    FullScreenDialogDog(), // fullscreenDialog: true,
+                    FullScreenDialogDog(null), // fullscreenDialog: true,
               ),
-            ).then((value) {
-              print(value);
+            ).then((dog) {
+              _helperDb.insertDog(dog!).then((value) {
+                setState(() {});
+                ScaffoldMessenger.of(context)
+                  ..clearSnackBars()
+                  ..showSnackBar(SnackBar(
+                      content: Row(
+                    children: const [
+                      Icon(
+                        Icons.info,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text('¡Insertado!'),
+                    ],
+                  )));
+              });
             });
           },
           child: Icon(Icons.add)),
@@ -79,43 +113,105 @@ class _AppDbState extends State<AppDb> {
 }
 
 class ListDogs extends StatelessWidget {
-  const ListDogs({
-    Key? key,
-    required this.item,
-  }) : super(key: key);
+  const ListDogs(
+      {Key? key,
+      required this.item,
+      required this.onTapDog,
+      required this.onTapDeleteDog})
+      : super(key: key);
 
   final List<Dog>? item;
-
+  final Function onTapDog;
+  final Function onTapDeleteDog;
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-        itemBuilder: (context, index) {
-          final dog = item![index];
+    return Scrollbar(
+      child: ListView.separated(
+          itemBuilder: (context, index) {
+            final dog = item![index];
+            print(item!.length);
+            return Dismissible(
+              onDismissed: (direction) {
+                onTapDeleteDog(dog);
+              },
+              key: Key(dog.id.toString()),
+              background: deleteBgItem(),
+              child: ListTile(
+                onTap: () {
+                  Navigator.push<Dog>(
+                    context,
+                    MaterialPageRoute<Dog>(
+                      builder: (BuildContext context) =>
+                          FullScreenDialogDog(dog), // fullscreenDialog: true,
+                    ),
+                  ).then((value) {
+                    if (value == null) return;
+                    onTapDog(value);
+                  });
+                },
+                title: Text(dog.name),
+                subtitle: Text('Age ${dog.age}'),
+                trailing: Text('id ${dog.id}'),
+              ),
+            );
+          },
+          separatorBuilder: (context, index) {
+            return Divider();
+          },
+          itemCount: item!.length),
+    );
+  }
 
-          return ListTile(
-            title: Text(dog.name),
-            subtitle: Text('Age ${dog.age}'),
-          );
-        },
-        separatorBuilder: (context, index) {
-          return Divider();
-        },
-        itemCount: item!.length);
+  Widget deleteBgItem() {
+    return Container(
+      alignment: Alignment.centerRight,
+      padding: EdgeInsets.only(right: 20),
+      color: Colors.red,
+      child: Icon(
+        Icons.delete,
+        color: Colors.white,
+      ),
+    );
   }
 }
 
 class FullScreenDialogDog extends StatefulWidget {
   @override
   State<FullScreenDialogDog> createState() => _FullScreenDialogDogState();
+
+  FullScreenDialogDog(this.item);
+  Dog? item;
 }
 
 class _FullScreenDialogDogState extends State<FullScreenDialogDog> {
   late FocusNode myFocusNode;
   final dogMap = <String, dynamic>{'id': 0, 'name': '', 'age': 0};
+  int i = 0;
+  String? validatorName(value) {
+    if (value == null) {
+      return 'Campo requerido';
+    }
+    if (value.length < 3) {
+      return 'El nombre debe tener Mínimo 3 caracteres';
+    }
+    return null;
+  }
+
+  String? validator(value) {
+    if (value == null || value.length < 1) {
+      return 'Campo requerido';
+    }
+    return null;
+  }
+
   @override
   void initState() {
     super.initState();
-
+    if (widget.item != null) {
+      dogMap['id'] = widget.item!.id;
+      dogMap['name'] = widget.item!.name;
+      dogMap['age'] = widget.item!.age;
+    }
     myFocusNode = FocusNode();
   }
 
@@ -129,6 +225,8 @@ class _FullScreenDialogDogState extends State<FullScreenDialogDog> {
 
   @override
   Widget build(BuildContext context) {
+    final myFormKey = GlobalKey<FormState>();
+
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 60,
@@ -146,7 +244,7 @@ class _FullScreenDialogDogState extends State<FullScreenDialogDog> {
         actions: [
           TextButton(
               onPressed: () {
-                if (dogMap.isEmpty) {
+                if (!myFormKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context)
                     ..clearSnackBars()
                     ..showSnackBar(SnackBar(
@@ -164,8 +262,12 @@ class _FullScreenDialogDogState extends State<FullScreenDialogDog> {
                     )));
                   return;
                 }
+                var intValue = Random().nextInt(1000);
+                FocusScope.of(context).requestFocus(FocusNode());
 
-                dogMap['id'] = 239;
+                if (dogMap['id'] == 0) {
+                  dogMap['id'] = intValue;
+                }
                 Navigator.of(context).pop(Dog.fromMap(dogMap));
               },
               child: const Text(
@@ -177,22 +279,38 @@ class _FullScreenDialogDogState extends State<FullScreenDialogDog> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Form(
+            key: myFormKey,
             child: Column(
-          children: [
-            TextFormField(
-              onEditingComplete: () {
-                myFocusNode.requestFocus();
-              },
-              onChanged: (value) => dogMap['name'] = value,
-              decoration: InputDecoration(label: Text('Name')),
-            ),
-            TextFormField(
-              focusNode: myFocusNode,
-              onChanged: (value) => dogMap['age'] = value as int,
-              decoration: InputDecoration(label: Text('Age')),
-            )
-          ],
-        )),
+              children: [
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  initialValue: dogMap['name'],
+                  autofocus: true,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onEditingComplete: () {
+                    myFocusNode.requestFocus();
+                  },
+                  validator: validatorName,
+                  onChanged: (value) => dogMap['name'] = value,
+                  decoration: InputDecoration(label: Text('Name')),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  initialValue:
+                      dogMap['age'] == 0 ? '' : dogMap['age'].toString(),
+                  validator: validator,
+                  focusNode: myFocusNode,
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) =>
+                      dogMap['age'] = value.isNotEmpty ? int.parse(value) : 0,
+                  decoration: InputDecoration(label: Text('Age')),
+                )
+              ],
+            )),
       ),
     );
   }
@@ -202,8 +320,10 @@ class HelperDb {
   static Database? _db;
 
   Future<Database> get db async {
-    if (_db != null) return _db!;
-    _db = await initDb();
+    if (_db == null || !_db!.isOpen) {
+      _db = await initDb();
+      return _db!;
+    }
     return _db!;
   }
 

@@ -15,5 +15,10 @@ class TalleresAppRoute {
         icon: Icons.list,
         name: 'Filtro de lista',
         screen: SelectList()),
+            MenuRouter(
+        route: '',
+        icon: Icons.store,
+        name: 'Sqlite',
+        screen:  AppDb()),
   ];
 }
