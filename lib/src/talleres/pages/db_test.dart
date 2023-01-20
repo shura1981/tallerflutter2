@@ -19,6 +19,7 @@ class _AppDbState extends State<AppDb> {
   @override
   initState() {
     _helperDb = HelperDb();
+    _helperDb.dogs('').then((value) => _helperDb.controller.add(value));
     // TODO: implement initState
     super.initState();
   }
@@ -27,6 +28,7 @@ class _AppDbState extends State<AppDb> {
   void dispose() {
     // TODO: implement dispose
     _helperDb.closeDb();
+    _helperDb.controller.close();
     super.dispose();
   }
 
@@ -34,10 +36,10 @@ class _AppDbState extends State<AppDb> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Test db')),
-      body: FutureBuilder(
-          future: _helperDb.dogs(),
+      body: StreamBuilder<List<Dog>>(
+          stream: _helperDb.controller.stream,
           builder: (context, AsyncSnapshot<List<Dog>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.data == null || snapshot.data!.isEmpty) {
                 return Center(child: Text('Vacio'));
               } else {
@@ -87,7 +89,8 @@ class _AppDbState extends State<AppDb> {
                     FullScreenDialogDog(null), // fullscreenDialog: true,
               ),
             ).then((dog) {
-              _helperDb.insertDog(dog!).then((value) {
+              if (dog == null) return;
+              _helperDb.insertDog(dog).then((value) {
                 setState(() {});
                 ScaffoldMessenger.of(context)
                   ..clearSnackBars()
@@ -229,7 +232,7 @@ class _FullScreenDialogDogState extends State<FullScreenDialogDog> {
 
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 60,
+        leadingWidth: 100,
         leading: TextButton(
           onPressed: () {
             Navigator.of(context).pop(null);
@@ -318,6 +321,9 @@ class _FullScreenDialogDogState extends State<FullScreenDialogDog> {
 
 class HelperDb {
   static Database? _db;
+  final _controller = StreamController<List<Dog>>();
+  static const _dbName = 'doggie_database.db';
+  StreamController<List<Dog>> get controller => _controller;
 
   Future<Database> get db async {
     if (_db == null || !_db!.isOpen) {
@@ -337,11 +343,11 @@ class HelperDb {
       // Set the path to the database. Note: Using the `join` function from the
       // `path` package is best practice to ensure the path is correctly
       // constructed for each platform.
-      join(await getDatabasesPath(), 'doggie_database.db'),
+      join(await getDatabasesPath(), _dbName),
       // When the database is first created, create a table to store dogs.
-      onCreate: (db, version) {
+      onCreate: (db, version) async {
         // Run the CREATE TABLE statement on the database.
-        return db.execute(
+        await db.execute(
           'CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)',
         );
       },
@@ -367,20 +373,23 @@ class HelperDb {
   }
 
   // A method that retrieves all the dogs from the dogs table.
-  Future<List<Dog>> dogs() async {
+  Future<List<Dog>> dogs(String name) async {
     // Get a reference to the database.
     var dbClient = await db;
     // Query the table for all The Dogs.
-    final List<Map<String, dynamic>> maps = await dbClient.query('dogs');
-
+    final List<Map<String, dynamic>> maps = await dbClient
+        .query('dogs', where: 'name LIKE ?', whereArgs: ['%$name%']);
+    // final List<Map<String, dynamic>> maps =
+    //     await dbClient.rawQuery("SELECT * FROM dogs WHERE name LIKE '%$name%'");
     // Convert the List<Map<String, dynamic> into a List<Dog>.
-    return List.generate(maps.length, (i) {
+    final dogs = List.generate(maps.length, (i) {
       return Dog(
         id: maps[i]['id'],
         name: maps[i]['name'],
         age: maps[i]['age'],
       );
     });
+    return dogs;
   }
 
   Future<void> updateDog(Dog dog) async {
@@ -421,7 +430,7 @@ class HelperDb {
     await insertDog(fido);
 
     // Now, use the method above to retrieve all the dogs.
-    print(await dogs()); // Prints a list that include Fido.
+    print(await dogs('')); // Prints a list that include Fido.
 
     // Update Fido's age and save it to the database.
     fido = Dog(
@@ -432,13 +441,13 @@ class HelperDb {
     await updateDog(fido);
 
     // Print the updated results.
-    print(await dogs()); // Prints Fido with age 42.
+    print(await dogs('')); // Prints Fido with age 42.
 
     // Delete Fido from the database.
     // await deleteDog(fido.id);
 
     // Print the list of dogs (empty).
-    print(await dogs());
+    print(await dogs(''));
   }
 }
 
