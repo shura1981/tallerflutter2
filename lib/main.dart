@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 // import 'src/models/heroes.dart';
@@ -9,7 +10,16 @@ import 'src/models/models.dart';
 import 'src/routes/index.dart';
 import 'theme/app_theme.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations(
+[
+DeviceOrientation.portraitUp,
+DeviceOrientation.portraitDown
+]
+);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

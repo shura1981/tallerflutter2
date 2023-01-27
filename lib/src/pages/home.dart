@@ -13,24 +13,31 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-   bool _state=false;
+  bool _state = false;
 
   @override
   Widget build(BuildContext context) {
-       final theme= Provider.of<ThemeChanger>(context);
+    final theme = Provider.of<ThemeChanger>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Componentes'),
-        actions: [Switch(value: _state, onChanged: (bool value) { setState(() {
-          _state= value;
-          if(_state){
-theme.setTheme(AppTheme.darkTheme);
-          }else {
-theme.setTheme(AppTheme.lightTheme);
-          }
-          print(value); 
-
-        }); },activeColor: Color(0xFF6200EE),)],
+        actions: [
+          Switch(
+            value: _state,
+            onChanged: (bool value) {
+              setState(() {
+                _state = value;
+                if (_state) {
+                  theme.setTheme(AppTheme.darkTheme);
+                } else {
+                  theme.setTheme(AppTheme.lightTheme);
+                }
+                print(value);
+              });
+            },
+            activeColor: Color(0xFF6200EE),
+          )
+        ],
       ),
       body: _optionsMenus(context),
     );

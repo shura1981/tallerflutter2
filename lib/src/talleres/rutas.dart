@@ -15,10 +15,11 @@ class TalleresAppRoute {
         icon: Icons.list,
         name: 'Filtro de lista',
         screen: SelectList()),
-            MenuRouter(
+    MenuRouter(route: '', icon: Icons.store, name: 'Sqlite', screen: AppDb()),
+    MenuRouter(
         route: '',
-        icon: Icons.store,
-        name: 'Sqlite',
-        screen:  AppDb()),
+        icon: Icons.add_box_outlined,
+        name: 'Stack container',
+        screen: StackScreen()),
   ];
 }
