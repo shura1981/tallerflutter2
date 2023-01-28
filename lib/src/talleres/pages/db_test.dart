@@ -48,7 +48,7 @@ class _AppDbState extends State<AppDb> {
                   item: item,
                   onTapDog: (value) {
                     print(value);
-                    _helperDb.updateDog(value).then((value) => setState(() {}));
+                    _helperDb.updateDog(value).then((value) =>  _helperDb.dogs('').then((value) => _helperDb.controller.add(value)));
                   },
                   onTapDeleteDog: (Dog dog) {
                     delete.add(dog);
@@ -91,7 +91,9 @@ class _AppDbState extends State<AppDb> {
             ).then((dog) {
               if (dog == null) return;
               _helperDb.insertDog(dog).then((value) {
-                setState(() {});
+                print('Insertado'+dog.toString());
+                // setState(() {});
+                  _helperDb.dogs('').then((value) => _helperDb.controller.add(value));
                 ScaffoldMessenger.of(context)
                   ..clearSnackBars()
                   ..showSnackBar(SnackBar(
@@ -137,7 +139,7 @@ class ListDogs extends StatelessWidget {
               onDismissed: (direction) {
                 onTapDeleteDog(dog);
               },
-              key: Key(dog.id.toString()),
+              key: UniqueKey(),
               background: deleteBgItem(),
               child: ListTile(
                 onTap: () {

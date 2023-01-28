@@ -7,9 +7,10 @@ class AppTheme {
   static const Color lightscaffoldBackgroundColor = Colors.white;
 
   static final ThemeData lightTheme = ThemeData.light().copyWith(
+    useMaterial3: true,
     primaryColor: lightPrimaryColor,
     primaryColorLight: lightPrimaryColorLight,
-    appBarTheme: AppBarTheme(color: lightPrimaryColor, elevation: 0),
+    appBarTheme: AppBarTheme(color: lightPrimaryColor, elevation: 0, foregroundColor: lightscaffoldBackgroundColor),
     scaffoldBackgroundColor: lightscaffoldBackgroundColor,
     textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(primary: lightPrimaryColor)),
