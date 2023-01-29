@@ -18,7 +18,7 @@ class _InfinityScrollState extends State<InfinityScroll> {
   bool isFirstLoad = false;
   List<Producto> lista = [];
   bool isNext = true;
-  bool pullRefresh=false;
+  bool pullRefresh = false;
   ScrollController? controller = new ScrollController();
   int page = 1;
   @override
@@ -32,7 +32,7 @@ class _InfinityScrollState extends State<InfinityScroll> {
       //     '${controller!.position.pixels}, ${controller!.position.maxScrollExtent}');
       if ((controller!.position.pixels + 200) >=
           controller!.position.maxScrollExtent) {
-         _loadData().then((value) {
+        _loadData().then((value) {
           print(value);
           if (!value) return;
           if (controller!.position.pixels + 100 <=
@@ -63,7 +63,7 @@ class _InfinityScrollState extends State<InfinityScroll> {
             ? Stack(
                 children: [
                   RefreshIndicator(
-                    onRefresh:  Refresh,
+                    onRefresh: Refresh,
                     child: ListView.builder(
                       physics: BouncingScrollPhysics(),
                       controller: controller,
@@ -71,7 +71,7 @@ class _InfinityScrollState extends State<InfinityScroll> {
                         final item = lista[index];
                         var f = new NumberFormat('###,###', 'en_US');
                         // print(item.image);
-                  
+
                         return ListTile(
                           onTap: () {
                             Navigator.push(
@@ -114,7 +114,8 @@ class _InfinityScrollState extends State<InfinityScroll> {
                                       overflow: TextOverflow.clip,
                                       textAlign: TextAlign.left,
                                     ),
-                                    Divider(color: Colors.black.withOpacity(.3)),
+                                    Divider(
+                                        color: Colors.black.withOpacity(.3)),
                                     Text(
                                       f.format(item.valor),
                                       textAlign: TextAlign.left,
@@ -175,12 +176,12 @@ class _InfinityScrollState extends State<InfinityScroll> {
     return true;
   }
 
-Future<void> Refresh() async{
-page=1;
-pullRefresh=true;
-isNext=true;
-_loadData().then((value) => pullRefresh=false);
-}
+  Future<void> Refresh() async {
+    page = 1;
+    pullRefresh = true;
+    isNext = true;
+    _loadData().then((value) => pullRefresh = false);
+  }
 
   Future<bool> _loadData() async {
     if (isload) {
@@ -188,7 +189,7 @@ _loadData().then((value) => pullRefresh=false);
     }
     isload = true;
     setState(() {});
-  if (!isNext) {
+    if (!isNext) {
       isFirstLoad = true;
       isload = false;
       setState(() {});
@@ -201,14 +202,14 @@ _loadData().then((value) => pullRefresh=false);
     final response = await http.get(url);
     print('Response status: ${response.statusCode}');
     // print('Response body: ${response.body}');
-    
+
     final Json = jsonDecode(response.body);
     isNext = Json['isNext'];
     page = Json['nextPage'];
 
-if(pullRefresh){
-  lista.clear();
-}
+    if (pullRefresh) {
+      lista.clear();
+    }
     List<Producto> data = [];
     for (var p in Json['data']) {
       data.add(Producto.fromJson(p));

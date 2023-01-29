@@ -1,13 +1,74 @@
 import 'package:flutter/material.dart';
 
-class StackScreen extends StatelessWidget {
+class StackScreen extends StatefulWidget {
   const StackScreen({Key? key}) : super(key: key);
+
+  @override
+  State<StackScreen> createState() => _StackScreenState();
+}
+
+class _StackScreenState extends State<StackScreen> {
+  ScrollController? controller = new ScrollController();
+  bool mostrar = false;
+  @override
+  void initState() {
+    controller!.addListener(() {
+      print(
+          '${controller!.position.pixels}, ${controller!.position.maxScrollExtent}');
+      if ((controller!.position.pixels + 200) >=
+          controller!.position.maxScrollExtent) {
+        mostrar = true;
+        setState(() {});
+      }
+
+      if ((controller!.position.pixels) <= 100) {
+        mostrar = false;
+        setState(() {});
+      }
+    });
+
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Stack container')),
-      body: ListView(children: [
+      extendBodyBehindAppBar: true,
+      floatingActionButton: mostrar
+          ? FloatingActionButton(
+              child: Icon(Icons.arrow_upward),
+              onPressed: () {
+                controller!.animateTo(0,
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.fastOutSlowIn);
+              },
+            )
+          : null,
+      appBar: AppBar(
+          // flexibleSpace: Image(
+          //     alignment: Alignment.topCenter,
+          //     fit: BoxFit.cover,
+          //     image: Image.network(
+          //             'https://smoda.elpais.com/wp-content/uploads/images/201137/rubias_654621993.jpg')
+          //         .image),
+          // backgroundColor: Colors.transparent,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(colors: const [ Colors.deepPurple,  Colors.purple, Colors.pink])
+            ),
+          ),
+          title: Text('Stack container'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only( bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20) )
+          ),
+          ),
+      body: ListView(controller: controller, children: [
+        Container(
+          color: Colors.red,
+          height: 200,
+          width: double.infinity,
+        ),
         CustomStackContainer(),
         SizedBox(
           height: 100,
@@ -20,7 +81,7 @@ class StackScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: CardsStack(),
         ),
-           SizedBox(
+        SizedBox(
           height: 100,
         ),
       ]),
@@ -33,43 +94,48 @@ class CardsStack extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Stack(
-   
-children:  [
-CardImage(url:images[0], margin:  EdgeInsets.symmetric(  horizontal: 40 ).copyWith(top:0),),
-CardImage(url:images[1], margin:  EdgeInsets.symmetric( horizontal: 20 ).copyWith(top:60),),
-CardImage(url:images[2], margin:  EdgeInsets.symmetric().copyWith(top:120),),
-],
-
+      children: [
+        CardImage(
+          url: images[0],
+          margin: EdgeInsets.symmetric(horizontal: 40).copyWith(top: 0),
+        ),
+        CardImage(
+          url: images[1],
+          margin: EdgeInsets.symmetric(horizontal: 20).copyWith(top: 60),
+        ),
+        CardImage(
+          url: images[2],
+          margin: EdgeInsets.symmetric().copyWith(top: 120),
+        ),
+      ],
     );
-
   }
 }
 
 class CardImage extends StatelessWidget {
   final String url;
-  
+
   final EdgeInsets margin;
 
-   const CardImage({
-    Key? key, required this.url, required this.margin
-  }) : super(key: key);
+  const CardImage({Key? key, required this.url, required this.margin})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return     Container(
+    return Container(
       margin: margin,
       child: AspectRatio(
         aspectRatio: 1,
-        child:   Container(
+        child: Container(
           height: 300,
           width: 300,
           decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20),
             image: DecorationImage(
-              fit: BoxFit.cover,
-              image: Image.network(url).image,
-              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.25), BlendMode.darken)
-              ),
+                fit: BoxFit.cover,
+                image: Image.network(url).image,
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.25), BlendMode.darken)),
           ),
         ),
       ),
@@ -162,16 +228,14 @@ class StackContainer extends StatelessWidget {
               height: 100,
               width: 100,
               decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                  color: Colors.white, spreadRadius: 4
-                ),
-                 BoxShadow(
-                              color: Colors.black.withOpacity(.3),
-                              spreadRadius: 2.0,
-                              blurRadius: 10.0,
-                              offset: Offset(2.0, 10.0))
-                ],
+                  boxShadow: [
+                    BoxShadow(color: Colors.white, spreadRadius: 4),
+                    BoxShadow(
+                        color: Colors.black.withOpacity(.3),
+                        spreadRadius: 2.0,
+                        blurRadius: 10.0,
+                        offset: Offset(2.0, 10.0))
+                  ],
                   shape: BoxShape.circle,
                   image: DecorationImage(
                       alignment: Alignment.topCenter,
@@ -185,8 +249,8 @@ class StackContainer extends StatelessWidget {
   }
 }
 
-List<String> images= [
+List<String> images = [
   'http://resizer.sevilla.abc.es/resizer/resizer.php?imagen=https://sevilla.abc.es/estilo/bulevarsur/wp-content/uploads/sites/14/2021/05/apertura-mechas.jpg&nuevoancho=652',
-'https://www.soycarmin.com/__export/1645815631100/sites/debate/img/2022/02/25/danna-paola-mechas-rubias-instagram_crop1645815499350.jpg_1902800913.jpg',
-'https://www.billboard.com/wp-content/uploads/2022/10/christina-aguilera-2019-b-billboard-espagnol-1548.jpg'
+  'https://www.soycarmin.com/__export/1645815631100/sites/debate/img/2022/02/25/danna-paola-mechas-rubias-instagram_crop1645815499350.jpg_1902800913.jpg',
+  'https://www.billboard.com/wp-content/uploads/2022/10/christina-aguilera-2019-b-billboard-espagnol-1548.jpg'
 ];
