@@ -4,3 +4,4 @@ export 'package:taller2/src/talleres/pages/select_lilst.dart';
 export 'package:taller2/src/talleres/pages/db_test.dart';
 export 'package:taller2/src/talleres/pages/stack_container.dart';
 export 'package:taller2/src/talleres/pages/column_container.dart';
+export 'package:taller2/src/talleres/pages/layout1.dart';

@@ -26,5 +26,10 @@ class TalleresAppRoute {
         icon: Icons.view_column,
         name: 'Column container',
         screen: ColumnScreen()),
+                    MenuRouter(
+        route: '',
+        icon: Icons.navigate_before_outlined,
+        name: 'Layout 1',
+        screen: Layout1Screen()),
   ];
 }
