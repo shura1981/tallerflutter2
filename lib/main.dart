@@ -11,13 +11,13 @@ import 'src/routes/index.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations(
-[
-DeviceOrientation.portraitUp,
-DeviceOrientation.portraitDown
-]
-);
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await SystemChrome.setPreferredOrientations(
+// [
+// DeviceOrientation.portraitUp,
+// DeviceOrientation.portraitDown
+// ]
+// );
   runApp(MyApp());
 }
 

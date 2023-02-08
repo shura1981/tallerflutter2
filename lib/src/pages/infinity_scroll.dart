@@ -21,6 +21,15 @@ class _InfinityScrollState extends State<InfinityScroll> {
   bool pullRefresh = false;
   ScrollController? controller = new ScrollController();
   int page = 1;
+
+  // @override
+  // void setState(VoidCallback fn) {
+  //   // TODO: implement setState
+  //   if (mounted) {
+  //     super.setState(fn);
+  //   }
+  // }
+
   @override
   void initState() {
     super.initState();
