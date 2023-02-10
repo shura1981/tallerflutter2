@@ -398,7 +398,7 @@ class StackContainer extends StatelessWidget {
 }
 
 List<String> images = [
-  'http://resizer.sevilla.abc.es/resizer/resizer.php?imagen=https://sevilla.abc.es/estilo/bulevarsur/wp-content/uploads/sites/14/2021/05/apertura-mechas.jpg&nuevoancho=652',
+  'https://www.billboard.com/wp-content/uploads/2022/10/christina-aguilera-2019-b-billboard-espagnol-1548.jpg',
   'https://www.soycarmin.com/__export/1645815631100/sites/debate/img/2022/02/25/danna-paola-mechas-rubias-instagram_crop1645815499350.jpg_1902800913.jpg',
   'https://www.billboard.com/wp-content/uploads/2022/10/christina-aguilera-2019-b-billboard-espagnol-1548.jpg'
 ];

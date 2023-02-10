@@ -14,6 +14,7 @@ class _AlimentosState extends State<Alimentos> {
   @override
   void initState() {
     // TODO: implement initState
+    editingController.addListener(() {setState(() { });});
     super.initState();
   }
 
@@ -22,12 +23,15 @@ class _AlimentosState extends State<Alimentos> {
   void dispose() {
     // TODO: implement dispose
     _db.dispose();
+    editingController.dispose();
+    _focus.dispose();
     super.dispose();
   }
-
+   TextEditingController editingController = TextEditingController();
+    final FocusNode _focus = FocusNode();
   @override
   Widget build(BuildContext context) {
-    TextEditingController editingController = TextEditingController();
+ 
     return Scaffold(
       appBar: AppBar(
         title: Text('Base de datos de alimentos'),
@@ -44,14 +48,26 @@ class _AlimentosState extends State<Alimentos> {
               onChanged: (value) {
                 _db.find(value);
               },
+              focusNode: _focus,
               controller: editingController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                   hintStyle: TextStyle(color: Colors.white),
                   labelStyle: TextStyle(color: Colors.white),
-                  fillColor: Colors.grey,
+                  fillColor: Color.fromARGB(255, 197, 197, 197),
                   filled: true,
                   // labelText: 'Buscar',
                   hintText: 'Buscar',
+                  suffixIcon: editingController.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            editingController.clear();
+                            _focus.unfocus();
+                          },
+                          icon: Icon(
+                            Icons.clear,
+                            color: Colors.white,
+                          ))
+                      : null,
                   prefixIcon: Icon(
                     Icons.search,
                     color: Colors.white,
@@ -140,8 +156,13 @@ class Materiales extends StatelessWidget {
 
   void show(context, item) {
     double espacio = 10;
-String medida= item['unidad_medida'].toString().isEmpty ? 'porción' : item['unidad_medida'];
-if(item['cantidad']==1 && (item['unidad_medida'].toString().contains('gramos') || item['unidad_medida'].toString().contains('Gramos')))medida = 'gramo' ; 
+    String medida = item['unidad_medida'].toString().isEmpty
+        ? 'porción'
+        : item['unidad_medida'];
+    if (item['cantidad'] == 1 &&
+        (item['unidad_medida'].toString().contains('gramos') ||
+            item['unidad_medida'].toString().contains('Gramos')))
+      medida = 'gramo';
     showDialog(
         barrierDismissible: true,
         context: context,
@@ -151,92 +172,98 @@ if(item['cantidad']==1 && (item['unidad_medida'].toString().contains('gramos') |
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               title: Text(item['alimentos']),
-              content:Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                            Row(
+              content: Column(mainAxisSize: MainAxisSize.min, children: [
+                Row(
                   children: [
                     Expanded(
                         child: Text(
                       'Cantidad',
                       textAlign: TextAlign.left,
                     )),
-                       Expanded(
+                    Expanded(
                         child: Text(
                       '${item['cantidad']}',
                       textAlign: TextAlign.right,
                     )),
                   ],
                 ),
-SizedBox(height: espacio),
-                      Row(
+                SizedBox(height: espacio),
+                Row(
                   children: [
                     Expanded(
                         child: Text(
                       'Unidad de medida',
                       textAlign: TextAlign.left,
                     )),
-                       Expanded(
+                    Expanded(
                         child: Text(
                       medida,
                       textAlign: TextAlign.right,
                     )),
                   ],
                 ),
-SizedBox(height: espacio+10,),
-                 Row(
+                SizedBox(
+                  height: espacio + 10,
+                ),
+                Row(
                   children: [
                     Expanded(
                         child: Text(
                       'Proteína',
                       textAlign: TextAlign.left,
                     )),
-                       Expanded(
+                    Expanded(
                         child: Text(
                       '${item['proteina']} g',
                       textAlign: TextAlign.right,
                     )),
                   ],
                 ),
-SizedBox(height: espacio,),
-                     Row(
+                SizedBox(
+                  height: espacio,
+                ),
+                Row(
                   children: [
                     Expanded(
                         child: Text(
                       'Carbohidratos',
                       textAlign: TextAlign.left,
                     )),
-                       Expanded(
+                    Expanded(
                         child: Text(
                       '${item['chos']} g',
                       textAlign: TextAlign.right,
                     )),
                   ],
                 ),
-                SizedBox(height: espacio,),
-                     Row(
+                SizedBox(
+                  height: espacio,
+                ),
+                Row(
                   children: [
                     Expanded(
                         child: Text(
                       'Grasa',
                       textAlign: TextAlign.left,
                     )),
-                       Expanded(
+                    Expanded(
                         child: Text(
                       '${item['grasa']} g',
                       textAlign: TextAlign.right,
                     )),
                   ],
                 ),
-                SizedBox(height: espacio,),
-                     Row(
+                SizedBox(
+                  height: espacio,
+                ),
+                Row(
                   children: [
                     Expanded(
                         child: Text(
                       'Calorías',
                       textAlign: TextAlign.left,
                     )),
-                       Expanded(
+                    Expanded(
                         child: Text(
                       '${item['calorias']}',
                       textAlign: TextAlign.right,
