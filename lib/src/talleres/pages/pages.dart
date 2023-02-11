@@ -7,3 +7,4 @@ export 'package:taller2/src/talleres/pages/column_container.dart';
 export 'package:taller2/src/talleres/pages/layout1.dart';
 export 'package:taller2/src/talleres/pages/mediaquery.dart';
 export 'package:taller2/src/talleres/pages/layoutbuilder.dart';
+export 'package:taller2/src/talleres/pages/gridresposive.dart';

@@ -21,30 +21,35 @@ class TalleresAppRoute {
         icon: Icons.add_box_outlined,
         name: 'Stack container',
         screen: StackScreen()),
-            MenuRouter(
+    MenuRouter(
         route: '',
         icon: Icons.view_column,
         name: 'Column container',
         screen: ColumnScreen()),
-                    MenuRouter(
+    MenuRouter(
         route: '',
         icon: Icons.navigate_before_outlined,
         name: 'Layout 1',
         screen: Layout1Screen()),
-            MenuRouter(
+    MenuRouter(
         route: '',
         icon: Icons.view_column,
         name: 'Column container',
         screen: ColumnScreen()),
-                    MenuRouter(
+    MenuRouter(
         route: '',
         icon: Icons.window,
         name: 'Media Query',
         screen: MediaQueryScreen()),
-                       MenuRouter(
+    MenuRouter(
         route: '',
         icon: Icons.window,
         name: 'Layout Builder',
         screen: LayoutBuilderScreen()),
+    MenuRouter(
+        route: '',
+        icon: Icons.grid_3x3_sharp,
+        name: 'Grid Responsive',
+        screen: GridResponsivePage(title: 'Grid Responsive',)),
   ];
 }
