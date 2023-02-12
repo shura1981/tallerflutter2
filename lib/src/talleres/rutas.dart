@@ -51,5 +51,10 @@ class TalleresAppRoute {
         icon: Icons.grid_3x3_sharp,
         name: 'Grid Responsive',
         screen: GridResponsivePage(title: 'Grid Responsive',)),
+         MenuRouter(
+        route: '',
+        icon: Icons.text_format,
+        name: 'Texto',
+        screen: TextScreen()),
   ];
 }

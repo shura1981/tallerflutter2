@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
 
-
 class GridResponsivePage extends StatefulWidget {
   const GridResponsivePage({super.key, required this.title});
 
@@ -110,7 +109,7 @@ List<Widget> tarjetas() {
             child: Tarjeta(
               placeHolder: 'assets/load-loading.gif',
               image:
-                  'https://imagenes.20minutos.es/files/image_990_v3/uploads/imagenes/2020/08/09/doutzen-kroes-cannes-2015.jpeg',
+                  'https://www.unotv.com/uploads/2021/04/still-freefire-internet-125544.jpg',
             ),
           ));
 }
@@ -125,27 +124,64 @@ class Tarjeta extends StatelessWidget {
   final String? placeHolder;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 300,
-      height: 300,
+    return Container(
+      height: 200,
+      width: double.maxFinite,
+      decoration: BoxDecoration(
+     borderRadius: BorderRadius.circular(20),  
+        image: DecorationImage(
+          image: Image.network(image!).image,
+          fit: BoxFit.cover,
+        ),
+      ),
       child: ClipRRect(
-        child: Stack(
-          children: <Widget>[
-            FadeInImage.assetNetwork(
-              placeholder: placeHolder!,
-              image: image!,
-              fit: BoxFit.cover,
+        borderRadius: BorderRadius.circular(20),
+        // make sure we apply clip it properly
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Container(
+            alignment: Alignment.center,
+            color: Colors.grey.withOpacity(0.1),
+            child: Text(
+              "CHOCOLATE",
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
             ),
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaY: 10, sigmaX: 10),
-              child: Container(
-                color: Colors.black12,
-              ),
-            )
-          ],
+          ),
         ),
       ),
     );
+
+    // return ClipRRect(
+    //    borderRadius: BorderRadius.circular(10),
+    //   child: Stack(
+    //     children: <Widget>[
+
+    //       FadeInImage.assetNetwork(
+    //         width: double.infinity,
+    //         height: 300,
+    //           placeholder: placeHolder!,
+    //         image: image!,
+    //         fit: BoxFit.cover,
+    //         placeholderFit: BoxFit.cover,
+    //       ),
+    //       Positioned(
+    //         top:70,
+    //         left: 0,
+    //         right: 0,
+    //         bottom: 70,
+    //         child: ClipRect(
+    //           child: BackdropFilter(
+    //             filter: ImageFilter.blur(sigmaY: 10, sigmaX: 10),
+    //             child: Container(
+    //               color: Colors.black12,
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //          Center(child: Text('Prueba', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),)),
+    //     ],
+    //   ),
+    // );
 
     // return Card(
     //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
