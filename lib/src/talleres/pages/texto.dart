@@ -11,9 +11,10 @@ class TextScreen extends StatelessWidget {
       decorationStyle: TextDecorationStyle.dashed,
       letterSpacing: 12.0,
       wordSpacing: 14.0,
-      shadows: const [
-        Shadow( color: Color.fromARGB(255, 255, 75, 75), blurRadius:  2.0, offset: Offset(3, 1))
-      ],
+      foreground: Paint()..color=Colors.blue..strokeWidth=2.0..style= PaintingStyle.stroke,
+      // shadows: const [
+      //   Shadow( color: Color.fromARGB(255, 255, 75, 75), blurRadius:  2.0, offset: Offset(3, 1))
+      // ],
       // decoration: TextDecoration.combine(
       //     [TextDecoration.underline, TextDecoration.overline])
           
@@ -24,19 +25,30 @@ class TextScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('TextScreen'),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Text(
-              'TextScreen',
-              style: _textStyle,
-            ),
-            Text(
-              'Hola mundo',
-              style: _textStyleLato.copyWith(
-                  fontStyle: FontStyle.italic, fontWeight: FontWeight.w900),
-            ),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Column(
+            children: [
+              Text(
+                'TextScreen',
+                style: _textStyle,
+              ),
+              Text(
+                'Hola mundo',
+                style: _textStyleLato.copyWith(
+                    fontStyle: FontStyle.italic, fontWeight: FontWeight.w900),
+              ),
+              Text(''' Enumerating objects: 49, done. Counting objects: 100% (49/49), done. Delta compression using up to 8 threads. Compressing objects: 100% (33/33), done.''',
+              // maxLines: 2,
+              softWrap: false,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                
+              ),
+              )
+            ],
+          ),
         ),
       ),
     );
