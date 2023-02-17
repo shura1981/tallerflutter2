@@ -27,8 +27,7 @@ class _AppDbState extends State<AppDb> {
   @override
   void dispose() {
     // TODO: implement dispose
-    _helperDb.closeDb();
-    _helperDb.controller.close();
+    //_helperDb.dispose();
     super.dispose();
   }
 
@@ -48,7 +47,9 @@ class _AppDbState extends State<AppDb> {
                   item: item,
                   onTapDog: (value) {
                     print(value);
-                    _helperDb.updateDog(value).then((value) =>  _helperDb.dogs('').then((value) => _helperDb.controller.add(value)));
+                    _helperDb.updateDog(value).then((value) => _helperDb
+                        .dogs('')
+                        .then((value) => _helperDb.controller.add(value)));
                   },
                   onTapDeleteDog: (Dog dog) {
                     delete.add(dog);
@@ -91,9 +92,11 @@ class _AppDbState extends State<AppDb> {
             ).then((dog) {
               if (dog == null) return;
               _helperDb.insertDog(dog).then((value) {
-                print('Insertado'+dog.toString());
+                print('Insertado' + dog.toString());
                 // setState(() {});
-                  _helperDb.dogs('').then((value) => _helperDb.controller.add(value));
+                _helperDb
+                    .dogs('')
+                    .then((value) => _helperDb.controller.add(value));
                 ScaffoldMessenger.of(context)
                   ..clearSnackBars()
                   ..showSnackBar(SnackBar(
@@ -326,7 +329,15 @@ class HelperDb {
   final _controller = StreamController<List<Dog>>();
   static const _dbName = 'doggie_database.db';
   StreamController<List<Dog>> get controller => _controller;
-
+  // test singlenton
+  static HelperDb? _helperDb;
+  HelperDb._createInstance();
+  factory HelperDb() {
+    if (_helperDb == null) return HelperDb._createInstance();
+    _helperDb!.closeDb();
+    return _helperDb!;
+  }
+// final test
   Future<Database> get db async {
     if (_db == null || !_db!.isOpen) {
       _db = await initDb();
@@ -357,6 +368,11 @@ class HelperDb {
       // path to perform database upgrades and downgrades.
       version: 1,
     );
+  }
+
+  Future<void> dispose() async {
+    controller.close();
+    await _db!.close();
   }
 
   // Define a function that inserts dogs into the database
