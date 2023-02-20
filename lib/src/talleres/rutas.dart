@@ -56,5 +56,15 @@ class TalleresAppRoute {
         icon: Icons.text_format,
         name: 'Texto',
         screen: TextScreen()),
+          MenuRouter(
+        route: '',
+        icon: Icons.login,
+        name: 'Login',
+        screen: LoginScreen()),
+           MenuRouter(
+        route: '',
+        icon: Icons.pageview,
+        name: 'Page View',
+        screen: PageViewScreen()),
   ];
 }

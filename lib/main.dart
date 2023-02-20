@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,8 @@ Future<void> main() async {
 // DeviceOrientation.portraitDown
 // ]
 // );
+  // registreLicence();
+
   runApp(MyApp());
 }
 
@@ -54,4 +57,11 @@ class MaterialAppWithTheme extends StatelessWidget {
         routes: AppRoute.getRoutes(),
         onGenerateRoute: AppRoute.onGenerateRoute);
   }
+}
+
+registreLicence() {
+  return LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('fonts/Lato/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
 }

@@ -9,3 +9,5 @@ export 'package:taller2/src/talleres/pages/mediaquery.dart';
 export 'package:taller2/src/talleres/pages/layoutbuilder.dart';
 export 'package:taller2/src/talleres/pages/gridresposive.dart';
 export 'package:taller2/src/talleres/pages/texto.dart';
+export 'package:taller2/src/talleres/pages/login.dart';
+export 'package:taller2/src/talleres/pages/page_view.dart';
