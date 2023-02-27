@@ -66,5 +66,10 @@ class TalleresAppRoute {
         icon: Icons.pageview,
         name: 'Page View',
         screen: PageViewScreen()),
+            MenuRouter(
+        route: '',
+        icon: Icons.pageview,
+        name: 'Draggable Scrollable',
+        screen: DraggableScrollabe()),
   ];
 }
