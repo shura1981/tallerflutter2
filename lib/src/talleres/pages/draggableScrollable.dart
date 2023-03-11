@@ -83,6 +83,21 @@ final List<Food> list = [
       description: 'Deliciosa hamburguesa con doble queso',
       image:
           'https://www.eatthis.com/wp-content/uploads/sites/4/2021/07/pancakes.jpg?quality=82&strip=1'),
+  Food(
+      title: 'Hamburguer',
+      description: 'Deliciosa hamburguesa con doble queso',
+      image:
+          'https://www.eatthis.com/wp-content/uploads/sites/4/2021/07/pancakes.jpg?quality=82&strip=1'),
+  Food(
+      title: 'Hamburguer',
+      description: 'Deliciosa hamburguesa con doble queso',
+      image:
+          'https://www.eatthis.com/wp-content/uploads/sites/4/2021/07/pancakes.jpg?quality=82&strip=1'),
+  Food(
+      title: 'Hamburguer 10',
+      description: 'Deliciosa hamburguesa con doble queso',
+      image:
+          'https://www.eatthis.com/wp-content/uploads/sites/4/2021/07/pancakes.jpg?quality=82&strip=1'),
 ];
 
 class _DraggableScrollabeState extends State<DraggableScrollabe> {
@@ -181,7 +196,8 @@ showBottomSheet(BuildContext context) {
     context: context,
     // isDismissible: false,
     enableDrag: true,
-    // isScrollControlled: true,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
     builder: (context) => MyBottomSheet(),
@@ -193,37 +209,89 @@ class MyBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SingleChildScrollView(
-        child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: list.map((food) {
-              return Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  splashColor: Colors.red,
-                  onTap: () {
-                    print(food.title);
-                    Navigator.of(context).pop();
-                  },
-                  child: ListTile(
-                    title: Text(
-                      food.title,
-                    ),
-                    subtitle: Text(food.description),
-                    leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          food.image,
-                          fit: BoxFit.cover,
-                          height: 50,
-                          width: 50,
-                        )),
-                  ),
-                ),
-              );
-            }).toList()),
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => Navigator.of(context).pop(),
+      child: DraggableScrollableSheet(
+        initialChildSize: .5,
+        maxChildSize: .8,
+        minChildSize: .5,
+        builder: (BuildContext context, ScrollController scrollController) {
+          return ClipRRect(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+            child: Container(
+              color: Colors.white,
+              padding: EdgeInsets.all(18),
+              child: ListView(
+                controller: scrollController,
+                children: listOptions(context),
+              ),
+            ),
+          );
+        },
       ),
     );
+  }
+
+  listOptions(BuildContext context) {
+    return list.map((food) {
+      return Material(
+        color: Colors.transparent,
+        child: InkWell(
+          splashColor: Colors.red,
+          onTap: () {
+            print(food.title);
+            Navigator.of(context).pop();
+          },
+          child: ListTile(
+            title: Text(
+              food.title,
+            ),
+            subtitle: Text(food.description),
+            leading: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  food.image,
+                  fit: BoxFit.cover,
+                  height: 50,
+                  width: 50,
+                )),
+          ),
+        ),
+      );
+    }).toList();
+  }
+}
+
+class Bonnie extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(mainAxisSize: MainAxisSize.min, children: [
+      CircleAvatar(
+        maxRadius: 60,
+        backgroundImage: Image.network(
+          'http://t3.gstatic.com/licensed-image?q=tbn:ANd9GcSK7tFSJPsJW3XXDj8x64bnNc6-tv846qOPV5X5RFXOyPovh40XkngoEcaAp4zomnIN',
+          fit: BoxFit.cover,
+        ).image,
+      ),
+      SizedBox(height: 20),
+      Text(
+          'El conejo común o conejo europeo es una especie de mamífero lagomorfo de la familia Leporidae, y el único miembro actual del género Oryctolagus. Mide hasta 50 cm y su masa puede ser hasta 2.5 kg. Ha sido introducido en varios continentes y es la especie que se utiliza en la cocina y en la cunicultura'),
+      SizedBox(height: 10),
+      Text(
+          'El conejo común o conejo europeo es una especie de mamífero lagomorfo de la familia Leporidae, y el único miembro actual del género Oryctolagus. Mide hasta 50 cm y su masa puede ser hasta 2.5 kg. Ha sido introducido en varios continentes y es la especie que se utiliza en la cocina y en la cunicultura'),
+      SizedBox(height: 10),
+      Text(
+          'El conejo común o conejo europeo es una especie de mamífero lagomorfo de la familia Leporidae, y el único miembro actual del género Oryctolagus. Mide hasta 50 cm y su masa puede ser hasta 2.5 kg. Ha sido introducido en varios continentes y es la especie que se utiliza en la cocina y en la cunicultura'),
+      SizedBox(height: 30),
+      FilledButton.icon(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(Icons.close),
+          label: Text('Cerrar')),
+      SizedBox(height: 30),
+    ]);
   }
 }
