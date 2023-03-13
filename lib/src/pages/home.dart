@@ -57,8 +57,6 @@ class _HomePageState extends State<HomePage> {
             ),
             onTap: () {
               print(item.route);
-// final route = MaterialPageRoute(builder: (context)=> AlertPage());
-// Navigator.push(context, route);
               Navigator.pushNamed(context, item.route, arguments: 'hola');
             },
           ),
@@ -97,8 +95,6 @@ class _HomePageState extends State<HomePage> {
             ),
             onTap: () {
               print(item['ruta']);
-// final route = MaterialPageRoute(builder: (context)=> AlertPage());
-// Navigator.push(context, route);
               Navigator.pushNamed(context, item['ruta'], arguments: 'hola');
             },
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 
+import '../disenos/pages/home.dart';
 import '../models/menu_router.dart';
 import '../pages/pages.dart';
 import '../talleres/pages/pages.dart' show HomeTalleres;
@@ -9,6 +10,7 @@ class AppRoute{
 static const initialRoute= '/';
 static final menuOptions= < MenuRouter>[
 MenuRouter(route: 'talleres', icon: Icons.list, name: 'Talleres', screen: HomeTalleres()),
+MenuRouter(route: 'disenos', icon: Icons.picture_in_picture, name: 'diseños', screen: HomeDisenos()),
 MenuRouter(route: 'alert', icon: Icons.add_alert, name: 'alert', screen: AlertPage()),
 MenuRouter(route: 'avatar', icon: Icons.home, name: 'avatar', screen: Avatars()),
 MenuRouter(route: 'card', icon: Icons.folder_open, name: 'card', screen: CardPage()),
