@@ -7,6 +7,14 @@ class ScrollScreen extends StatelessWidget {
     color: Colors.white,
     fontWeight: FontWeight.bold,
   );
+  final _controller = PageController();
+  final _decoration = BoxDecoration(
+      gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: const [0.5, 0.5],
+          colors: const [Color(0xff5EEBC5), Color(0xff30BAD6)]));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,17 +24,13 @@ class ScrollScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
         ),
         body: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: const [0.5, 0.5],
-                  colors: const [Color(0xff5EEBC5), Color(0xff30BAD6)])),
+          decoration: _decoration,
           child: PageView(
+            controller: _controller,
             scrollDirection: Axis.vertical,
             physics: BouncingScrollPhysics(),
             children: [
-              Page1(textStyle: textStyle),
+              Page1(textStyle: textStyle, controller: _controller),
               Page2(textStyle: textStyle),
             ],
           ),
@@ -38,10 +42,11 @@ class Page1 extends StatelessWidget {
   const Page1({
     super.key,
     required this.textStyle,
+    required this.controller,
   });
 
   final TextStyle textStyle;
-
+  final PageController controller;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -71,10 +76,15 @@ class Page1 extends StatelessWidget {
                 style: textStyle,
               ),
               Expanded(child: Container()),
-              Icon(
-                Icons.keyboard_arrow_down,
-                size: 100,
-                color: Colors.white,
+              GestureDetector(
+                onTap: () => controller.nextPage(
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeOutCubic),
+                child: Icon(
+                  Icons.keyboard_arrow_down,
+                  size: 100,
+                  color: Colors.white,
+                ),
               )
             ],
           ),

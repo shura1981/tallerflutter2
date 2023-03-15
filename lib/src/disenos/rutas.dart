@@ -10,10 +10,15 @@ class DisenosAppRoute {
         icon: Icons.done_all_outlined,
         name: 'básico',
         screen: BasicScreen()),
-            MenuRouter(
+    MenuRouter(
         route: '',
         icon: Icons.screen_lock_landscape,
         name: 'scroll',
         screen: ScrollScreen()),
+    MenuRouter(
+        route: '',
+        icon: Icons.color_lens,
+        name: 'avanzado',
+        screen: AvanceScreen()),
   ];
 }
