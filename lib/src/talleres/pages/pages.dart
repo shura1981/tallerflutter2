@@ -12,3 +12,4 @@ export 'package:taller2/src/talleres/pages/texto.dart';
 export 'package:taller2/src/talleres/pages/login.dart';
 export 'package:taller2/src/talleres/pages/page_view.dart';
 export 'package:taller2/src/talleres/pages/draggableScrollable.dart';
+export 'package:taller2/src/talleres/pages/value_notifier.dart';

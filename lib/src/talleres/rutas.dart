@@ -50,26 +50,30 @@ class TalleresAppRoute {
         route: '',
         icon: Icons.grid_3x3_sharp,
         name: 'Grid Responsive',
-        screen: GridResponsivePage(title: 'Grid Responsive',)),
-         MenuRouter(
+        screen: GridResponsivePage(
+          title: 'Grid Responsive',
+        )),
+    MenuRouter(
         route: '',
         icon: Icons.text_format,
         name: 'Texto',
         screen: TextScreen()),
-          MenuRouter(
-        route: '',
-        icon: Icons.login,
-        name: 'Login',
-        screen: LoginScreen()),
-           MenuRouter(
+    MenuRouter(
+        route: '', icon: Icons.login, name: 'Login', screen: LoginScreen()),
+    MenuRouter(
         route: '',
         icon: Icons.pageview,
         name: 'Page View',
         screen: PageViewScreen()),
-            MenuRouter(
+    MenuRouter(
         route: '',
         icon: Icons.pageview,
         name: 'Draggable Scrollable',
         screen: DraggableScrollabe()),
+    MenuRouter(
+        route: '',
+        icon: Icons.lock_clock_rounded,
+        name: 'Value Notifier',
+        screen: ValueNotifierScreen()),
   ];
 }
