@@ -1,0 +1,1 @@
+export 'package:taller2/src/qr_map/widgets/scand_code.dart';
