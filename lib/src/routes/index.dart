@@ -25,7 +25,8 @@ MenuRouter(route: 'sliderscreen', icon: Icons.slideshow_outlined, name: 'slider 
 MenuRouter(route: 'listviewbuilder', icon: Icons.list_alt_outlined, name: 'listview builder', screen: ListviewBuilder()),
 MenuRouter(name: 'infinity Scroll', icon: Icons.window, screen: InfinityScroll(), route: 'infinityScroll'),
 MenuRouter(route: 'grid', icon: Icons.grid_3x3_outlined, name: 'Grid view', screen: GridViewGallery()),
-MenuRouter(route: 'imagepicker', icon: Icons.picture_in_picture, name: 'Image Picker', screen: PickerImage())
+MenuRouter(route: 'imagepicker', icon: Icons.picture_in_picture, name: 'Image Picker', screen: PickerImage()),
+MenuRouter(route: 'tabbar', icon: Icons.tab, name: 'Tab Bar', screen: TabBarScreen()),
 ];
 static Route<dynamic>? onGenerateRoute(RouteSettings setting){
 return MaterialPageRoute(builder: (context)=> AlertPage());

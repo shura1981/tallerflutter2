@@ -13,3 +13,4 @@ export 'package:taller2/src/pages/provider_page.dart';
 export 'package:taller2/src/pages/infinity_scroll.dart';
 export 'package:taller2/src/pages/gridviewpage.dart';
 export 'package:taller2/src/pages/image_picker.dart';
+export 'package:taller2/src/pages/tab_bar.dart';
