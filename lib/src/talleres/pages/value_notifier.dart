@@ -26,9 +26,13 @@ class ValueNotifierScreen extends StatelessWidget {
               child: ValueListenableBuilder<DateTime>(
                 builder: (BuildContext context, value, Widget? child) {
                   String formattedTime = DateFormat.Hms().format(value);
-                  return Text(
-                    formattedTime,
-                    style: TextStyle(fontSize: 80),
+                  double screenWidth = MediaQuery.of(context).size.width * 0.78;
+                  return SizedBox(
+                    width: screenWidth,
+                    child: Text(
+                      formattedTime,
+                      style: TextStyle(fontSize: 80),
+                    ),
                   );
                 },
                 valueListenable: _valueNotfier,

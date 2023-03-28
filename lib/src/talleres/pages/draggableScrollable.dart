@@ -194,8 +194,8 @@ class ListFood extends StatelessWidget {
 showBottomSheet(BuildContext context) {
   return showModalBottomSheet(
     context: context,
-    // isDismissible: false,
-    enableDrag: true,
+    isDismissible: true,
+    enableDrag: false,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     shape: RoundedRectangleBorder(
@@ -206,12 +206,11 @@ showBottomSheet(BuildContext context) {
 
 class MyBottomSheet extends StatelessWidget {
   const MyBottomSheet({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => Navigator.of(context).pop(),
+      // onTap: () => Navigator.of(context).pop(),
       child: DraggableScrollableSheet(
         initialChildSize: .5,
         maxChildSize: .8,
@@ -267,31 +266,34 @@ class MyBottomSheet extends StatelessWidget {
 class Bonnie extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(mainAxisSize: MainAxisSize.min, children: [
-      CircleAvatar(
-        maxRadius: 60,
-        backgroundImage: Image.network(
-          'http://t3.gstatic.com/licensed-image?q=tbn:ANd9GcSK7tFSJPsJW3XXDj8x64bnNc6-tv846qOPV5X5RFXOyPovh40XkngoEcaAp4zomnIN',
-          fit: BoxFit.cover,
-        ).image,
-      ),
-      SizedBox(height: 20),
-      Text(
-          'El conejo común o conejo europeo es una especie de mamífero lagomorfo de la familia Leporidae, y el único miembro actual del género Oryctolagus. Mide hasta 50 cm y su masa puede ser hasta 2.5 kg. Ha sido introducido en varios continentes y es la especie que se utiliza en la cocina y en la cunicultura'),
-      SizedBox(height: 10),
-      Text(
-          'El conejo común o conejo europeo es una especie de mamífero lagomorfo de la familia Leporidae, y el único miembro actual del género Oryctolagus. Mide hasta 50 cm y su masa puede ser hasta 2.5 kg. Ha sido introducido en varios continentes y es la especie que se utiliza en la cocina y en la cunicultura'),
-      SizedBox(height: 10),
-      Text(
-          'El conejo común o conejo europeo es una especie de mamífero lagomorfo de la familia Leporidae, y el único miembro actual del género Oryctolagus. Mide hasta 50 cm y su masa puede ser hasta 2.5 kg. Ha sido introducido en varios continentes y es la especie que se utiliza en la cocina y en la cunicultura'),
-      SizedBox(height: 30),
-      FilledButton.icon(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: Icon(Icons.close),
-          label: Text('Cerrar')),
-      SizedBox(height: 30),
-    ]);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        CircleAvatar(
+          maxRadius: 60,
+          backgroundImage: Image.network(
+            'http://t3.gstatic.com/licensed-image?q=tbn:ANd9GcSK7tFSJPsJW3XXDj8x64bnNc6-tv846qOPV5X5RFXOyPovh40XkngoEcaAp4zomnIN',
+            fit: BoxFit.cover,
+          ).image,
+        ),
+        SizedBox(height: 20),
+        Text(
+            'El conejo común o conejo europeo es una especie de mamífero lagomorfo de la familia Leporidae, y el único miembro actual del género Oryctolagus. Mide hasta 50 cm y su masa puede ser hasta 2.5 kg. Ha sido introducido en varios continentes y es la especie que se utiliza en la cocina y en la cunicultura'),
+        SizedBox(height: 10),
+        Text(
+            'El conejo común o conejo europeo es una especie de mamífero lagomorfo de la familia Leporidae, y el único miembro actual del género Oryctolagus. Mide hasta 50 cm y su masa puede ser hasta 2.5 kg. Ha sido introducido en varios continentes y es la especie que se utiliza en la cocina y en la cunicultura'),
+        SizedBox(height: 10),
+        Text(
+            'El conejo común o conejo europeo es una especie de mamífero lagomorfo de la familia Leporidae, y el único miembro actual del género Oryctolagus. Mide hasta 50 cm y su masa puede ser hasta 2.5 kg. Ha sido introducido en varios continentes y es la especie que se utiliza en la cocina y en la cunicultura'),
+        SizedBox(height: 30),
+        FilledButton.icon(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: Icon(Icons.close),
+            label: Text('Cerrar')),
+        SizedBox(height: 30),
+      ]),
+    );
   }
 }
