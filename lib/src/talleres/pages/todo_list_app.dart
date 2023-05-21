@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:taller2/src/providers/shared_preferences.dart';
 
 import '../../providers/storage.dart';
@@ -99,7 +97,7 @@ class _TodoListAppState extends State<TodoListApp> {
                         .closed
                         .then((SnackBarClosedReason reason) {
                       if (reason == SnackBarClosedReason.timeout) {
-                        print("tiempo expirado");
+                        print('tiempo expirado');
                       }
                     });
                   }

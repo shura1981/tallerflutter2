@@ -14,14 +14,14 @@ double fontsize=30.0;
 _MyAppState(){
   // runs every 1 second
 star();
-pause(5).then((value) => print("inicia el cliclo"));
+pause(5).then((value) => print('inicia el cliclo'));
 }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-home: Center(child: Text("hola mundo",textAlign: TextAlign.center ,style: TextStyle(color: Colors.yellow, fontSize: fontsize, letterSpacing: 1.5, fontWeight: FontWeight.w300, backgroundColor: Colors.blue ),)) );
+home: Center(child: Text('hola mundo',textAlign: TextAlign.center ,style: TextStyle(color: Colors.yellow, fontSize: fontsize, letterSpacing: 1.5, fontWeight: FontWeight.w300, backgroundColor: Colors.blue ),)) );
   }
 
 

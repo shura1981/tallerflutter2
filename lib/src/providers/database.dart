@@ -21,14 +21,14 @@ class Data {
 
   _opendb() async {
     var databasesPath = await getDatabasesPath();
-    var path = join(databasesPath, "megastore.db");
+    var path = join(databasesPath, 'megastore.db');
     // print("ruta:  " +databasesPath);
 // Check if the database exists
     var exists = await databaseExists(path);
 
     if (!exists) {
       // Should happen only the first time you launch your application
-      print("Creating new copy from asset ");
+      print('Creating new copy from asset ');
 
       // Make sure the parent directory exists
       try {
@@ -37,7 +37,7 @@ class Data {
 
       // Copy from asset
       ByteData data =
-          await rootBundle.load(join("assets", "database/megastore.db"));
+          await rootBundle.load(join('assets', 'database/megastore.db'));
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 

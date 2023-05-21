@@ -220,7 +220,7 @@ Widget buildHamburguer() {
                   ),
                   IconButton(
                       onPressed: () {
-                        print("comprar");
+                        print('comprar');
                       },
                       icon: Icon(
                         Icons.shopping_bag,

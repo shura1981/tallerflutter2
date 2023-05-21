@@ -131,7 +131,7 @@ class TextFieldScreen extends StatelessWidget {
                     },
                     child: Center(
                       child: SizedBox(
-                        child: Text("Enviar"),
+                        child: Text('Enviar'),
                       ),
                     ))
               ],

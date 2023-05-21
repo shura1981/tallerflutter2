@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:photo_view/photo_view.dart';
 import 'item_sliderscreen.dart';
 
 class ListviewBuilder extends StatelessWidget {

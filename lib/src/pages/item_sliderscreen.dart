@@ -113,7 +113,7 @@ class _ItemSliderScreemState extends State<ItemSliderScreem> {
         return SafeArea(
           child: GestureDetector(
             onTap: () {
-              print("click");
+              print('click');
               Navigator.of(context).pop();
             },
             child: Scaffold(

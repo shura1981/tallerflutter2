@@ -143,7 +143,7 @@ class Tarjeta extends StatelessWidget {
             alignment: Alignment.center,
             color: Colors.grey.withOpacity(0.1),
             child: Text(
-              "CHOCOLATE",
+              'CHOCOLATE',
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
             ),
           ),

@@ -13,12 +13,12 @@ class AppTheme {
     appBarTheme: AppBarTheme(color: lightPrimaryColor, elevation: 0, foregroundColor: lightscaffoldBackgroundColor),
     scaffoldBackgroundColor: lightscaffoldBackgroundColor,
     textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(primary: lightPrimaryColor)),
+        style: TextButton.styleFrom(foregroundColor: lightPrimaryColor)),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: lightPrimaryColor, elevation: 5),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-            primary: lightPrimaryColor,
+            backgroundColor: lightPrimaryColor,
             shape: const StadiumBorder(),
             elevation: 0)),
     inputDecorationTheme: InputDecorationTheme(

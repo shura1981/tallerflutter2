@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taller2/src/talleres/pages/widgets/list_search.dart';
 
-import '../../providers/ciudades.dart';
 
 class SelectList extends StatefulWidget {
   SelectList({Key? key}) : super(key: key);
