@@ -7,11 +7,7 @@ class QRScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('QRScreen'),
-      ),
-      body: Center(
+    return Center(
         child: TextButton.icon(
           onPressed: () {
             showBottomModal(context);
@@ -19,8 +15,7 @@ class QRScreen extends StatelessWidget {
           icon: Icon(Icons.open_in_browser),
           label: Text('Escanear'),
         ),
-      ),
-    );
+      );
   }
 }
 
