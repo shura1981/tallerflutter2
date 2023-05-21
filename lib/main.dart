@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:taller2/src/models/tab_qr_map.dart';
 
 // import 'src/models/heroes.dart';
 // import 'src/models/slider_provider.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
             create: (context) => ThemeChanger(AppTheme.lightTheme)),
         ChangeNotifierProvider(create: (context) => SliderProvider()),
+        ChangeNotifierProvider(create: (context) => Ui()),
       ],
       child: MaterialAppWithTheme(),
     );

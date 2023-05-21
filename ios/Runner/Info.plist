@@ -48,7 +48,7 @@
 		<key>NSPhotoLibraryUsageDescription</key>
 	<string>Para poder seleccionar la foto de avatar de la app </string>
 	<key>NSCameraUsageDescription</key>
-	<string>Para poder tomar una foto de tu perfil </string>
+	<string>Para poder tomar una foto de tu perfil o escanear un código de barras </string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 </dict>

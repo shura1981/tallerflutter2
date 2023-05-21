@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:taller2/src/qr_map/pages/qr.dart';
+import 'package:provider/provider.dart';
+import 'package:taller2/src/models/tab_qr_map.dart';
 
-import '../rutas.dart';
 import '../widgets/custom_navigation.dart';
 import '../widgets/scand_button.dart';
 import 'pages.dart';
@@ -30,7 +30,8 @@ class _HomePageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const currentIndex = 1;
+    final uiProvider = Provider.of<Ui>(context);
+    final currentIndex = uiProvider.index;
     switch (currentIndex) {
       case 0:
         return MapScreen();
