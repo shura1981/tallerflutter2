@@ -10,6 +10,5 @@ class QrMapAppRoute {
         icon: Icons.qr_code_2_rounded,
         name: 'Qr',
         screen: QRScreen()),
-    MenuRouter(route: '', icon: Icons.map, name: 'Mapas', screen: MapScreen()),
   ];
 }

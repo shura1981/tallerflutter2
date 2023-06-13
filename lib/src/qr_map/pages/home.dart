@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taller2/src/models/tab_qr_map.dart';
 
-import '../../providers/db_provider.dart';
+import '../../providers/scan_list_provider.dart';
 import '../widgets/custom_navigation.dart';
+import '../widgets/scan_tiles.dart';
 import '../widgets/scand_button.dart';
-import 'pages.dart';
 
 class QRMapScreen extends StatelessWidget {
   const QRMapScreen({Key? key}) : super(key: key);
@@ -15,6 +15,15 @@ class QRMapScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Menú'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.delete_forever),
+            onPressed: () {
+              Provider.of<ScanListProvider>(context, listen: false)
+                  .deleteScandAll();
+            },
+          )
+        ],
       ),
       body: _HomePageBody(),
       bottomNavigationBar: CustomNavigationBar(),
@@ -33,17 +42,15 @@ class _HomePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final uiProvider = Provider.of<Ui>(context);
     final currentIndex = uiProvider.index;
-    DBProvider.db.database;
-
-    final scandModel =
-        ScanModel(id: 1, tipo: 'http', valor: 'https://nutramerican.com');
-    DBProvider.db.nuevoScand(scandModel).then((value) => print(value));
-
+    final scanListProvider =
+        Provider.of<ScanListProvider>(context, listen: false);
     switch (currentIndex) {
       case 0:
-        return MapScreen();
+        scanListProvider.cargarScansPorTipo('geo');
+        return ScanTiles(tipo: 'geo');
       default:
-        return QRScreen();
+        scanListProvider.cargarScansPorTipo('http');
+        return ScanTiles(tipo: 'http');
     }
   }
 }

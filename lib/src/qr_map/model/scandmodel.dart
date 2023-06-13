@@ -8,11 +8,11 @@ class ScanModel {
     required this.tipo,
     required this.valor,
   }){
-    if (valor.contains('http')) {
-      tipo = 'http';
-    } else {
-      tipo = 'geo';
-    }
+    // if (valor.contains('http')) {
+    //   tipo = 'http';
+    // } else {
+    //   tipo = 'geo';
+    // }
   }
 
   factory ScanModel.fromJson(Map<String, dynamic> json) => new ScanModel(

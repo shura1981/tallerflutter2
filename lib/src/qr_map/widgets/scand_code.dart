@@ -71,11 +71,11 @@ class _ScanCodeWidgetState extends State<ScanCodeWidget> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
-      setState(() async {
+      setState(()  {
         controller.stopCamera();
         result = scanData;
         widget.onTap(scanData.code);
-        // Navigator.of(context).pop();
+        Navigator.of(context).pop();
       });
     });
   }

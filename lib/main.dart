@@ -9,6 +9,7 @@ import 'package:taller2/src/models/tab_qr_map.dart';
 // import 'src/models/themechanger.dart';
 // import 'src/models/villanos.dart';
 import 'src/models/models.dart';
+import 'src/providers/scan_list_provider.dart';
 import 'src/routes/index.dart';
 import 'theme/app_theme.dart';
 
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
             create: (context) => ThemeChanger(AppTheme.lightTheme)),
         ChangeNotifierProvider(create: (context) => SliderProvider()),
         ChangeNotifierProvider(create: (context) => Ui()),
+        ChangeNotifierProvider(create: (context) => ScanListProvider()),
       ],
       child: MaterialAppWithTheme(),
     );
