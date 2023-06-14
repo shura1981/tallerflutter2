@@ -19,7 +19,10 @@ class ScanButton extends StatelessWidget {
     return FloatingActionButton(
       backgroundColor: Theme.of(context).primaryColor,
       onPressed: () {
-        showBottomModal(context);
+        // showBottomModal(context);
+final route = MaterialPageRoute(builder: (context)=> MapScreen());
+Navigator.push(context, route);
+
       },
       child: Icon(Icons.filter_center_focus),
     );
@@ -91,11 +94,11 @@ void showBottomModal(
                 if (model.tipo == 'http') {
                   launch(model.valor);
                 } else {
-                  final route = MaterialPageRoute(
-                      builder: (context) => MapScreen(
-                            qr: model,
-                          ));
-                  Navigator.push(context, route);
+                  // final route = MaterialPageRoute(
+                  //     builder: (context) => MapScreen(
+                  //           qr: model,
+                  //         ));
+                  // Navigator.push(context, route);
                 }
               },
             ));
