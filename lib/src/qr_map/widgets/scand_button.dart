@@ -20,9 +20,7 @@ class ScanButton extends StatelessWidget {
       backgroundColor: Theme.of(context).primaryColor,
       onPressed: () {
         // showBottomModal(context);
-final route = MaterialPageRoute(builder: (context)=> MapScreen());
-Navigator.push(context, route);
-
+        _scand(context);
       },
       child: Icon(Icons.filter_center_focus),
     );
@@ -83,24 +81,28 @@ void showBottomModal(
                 // print('FecFac: ${keyValueModel.fecFac}');
                 // print('ValFac: ${keyValueModel.valFac}');
                 // _showMyDialog(context, keyValueModel);
-
-                const input = 'geo:4.609710,-74.081750';
-
-                final scanListProvider =
-                    Provider.of<ScanListProvider>(context, listen: false);
-                final model = await scanListProvider
-                    .nuevoScand(ScanModel(valor: input, tipo: 'geo', id: 1));
-
-                if (model.tipo == 'http') {
-                  launch(model.valor);
-                } else {
-                  // final route = MaterialPageRoute(
-                  //     builder: (context) => MapScreen(
-                  //           qr: model,
-                  //         ));
-                  // Navigator.push(context, route);
-                }
+                _scand(context, code);
               },
             ));
       });
+}
+
+Future<void> _scand(BuildContext context,
+    [code = 'geo:3.5324642364190586,-76.29573287273763']) async {
+  final input = code;
+
+  final scanListProvider =
+      Provider.of<ScanListProvider>(context, listen: false);
+  final model = await scanListProvider
+      .nuevoScand(ScanModel(valor: input, tipo: 'geo', id: 1));
+
+  if (model.tipo == 'http') {
+    launch(model.valor);
+  } else {
+    final route = MaterialPageRoute(
+        builder: (context) => MapScreen(
+              qr: model,
+            ));
+    Navigator.push(context, route);
+  }
 }

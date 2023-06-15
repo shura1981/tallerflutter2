@@ -34,11 +34,11 @@ class ScanTiles extends StatelessWidget {
             if (scans[i].tipo == 'http') {
               launch(scans[i].valor);
             } else {
-              // final route = MaterialPageRoute(
-              //         builder: (context) => MapScreen(
-              //               qr: scans[i],
-              //             ));
-              //     Navigator.push(context, route);
+              final route = MaterialPageRoute(
+                      builder: (context) => MapScreen(
+                            qr: scans[i],
+                          ));
+                  Navigator.push(context, route);
             }
           }
         ),
