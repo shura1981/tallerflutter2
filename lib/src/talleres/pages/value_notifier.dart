@@ -31,6 +31,7 @@ class ValueNotifierScreen extends StatelessWidget {
                     width: screenWidth,
                     child: Text(
                       formattedTime,
+                      textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 80),
                     ),
                   );

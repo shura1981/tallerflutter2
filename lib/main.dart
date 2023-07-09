@@ -29,6 +29,8 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+final query= MediaQuery.of(context);
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => HeroresInfo()),
@@ -39,7 +41,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => Ui()),
         ChangeNotifierProvider(create: (context) => ScanListProvider()),
       ],
-      child: MaterialAppWithTheme(),
+      child: MediaQuery(
+        data: query.copyWith(textScaleFactor: query.textScaleFactor.clamp(0.8, 1.2)),
+        child: MaterialAppWithTheme()),
     );
   }
 }

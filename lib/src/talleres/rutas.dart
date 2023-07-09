@@ -45,7 +45,7 @@ class TalleresAppRoute {
         route: '',
         icon: Icons.window,
         name: 'Layout Builder',
-        screen: LayoutBuilderScreen()),
+        screen: BuilderLayoutScreen()),
     MenuRouter(
         route: '',
         icon: Icons.grid_3x3_sharp,
