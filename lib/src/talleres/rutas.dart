@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:taller2/src/talleres/pages/pages.dart';
 
 import '../models/menu_router.dart';
+import '../pages/mediaqueryorientation.dart';
 
 class TalleresAppRoute {
   static final menuOptions = <MenuRouter>[
@@ -53,6 +54,11 @@ class TalleresAppRoute {
         screen: GridResponsivePage(
           title: 'Grid Responsive',
         )),
+    MenuRouter(
+        route: '',
+        icon: Icons.window,
+        name: 'Media Query Orientation',
+        screen: MediaQueryOrientation()),
     MenuRouter(
         route: '',
         icon: Icons.text_format,

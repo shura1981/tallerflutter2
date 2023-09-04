@@ -6,6 +6,7 @@ import '../flutter_gallery/pages/pages.dart';
 import '../flutter_gallery/router.dart';
 import '../models/menu_router.dart';
 import '../pages/pages.dart';
+import '../pages/streams.dart';
 import '../qr_map/pages/home.dart';
 import '../talleres/pages/pages.dart' show HomeTalleres;
 
@@ -29,7 +30,8 @@ MenuRouter(name: 'infinity Scroll', icon: Icons.window, screen: InfinityScroll()
 MenuRouter(route: 'grid', icon: Icons.grid_3x3_outlined, name: 'Grid view', screen: GridViewGallery()),
 MenuRouter(route: 'imagepicker', icon: Icons.picture_in_picture, name: 'Image Picker', screen: PickerImage()),
 MenuRouter(route: 'tabbar', icon: Icons.tab, name: 'Tab Bar', screen: TabBarScreen()),
-MenuRouter(route: 'tabbar', icon: Icons.browse_gallery_sharp, name: 'Gallery', screen: HomeGalleryScreen()),
+MenuRouter(route: 'gallery', icon: Icons.browse_gallery_sharp, name: 'Gallery', screen: HomeGalleryScreen()),
+MenuRouter(route: 'stream', icon: Icons.timelapse, name: 'Stream', screen: StreamScreen()),
 ];
 static Route<dynamic>? onGenerateRoute(RouteSettings setting){
 return MaterialPageRoute(builder: (context)=> AlertPage());
