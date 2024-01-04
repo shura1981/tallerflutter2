@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:taller2/src/models/tab_qr_map.dart';
+import 'package:taller2/src/productos/services/product_service.dart';
 
 // import 'src/models/heroes.dart';
 // import 'src/models/slider_provider.dart';
@@ -40,6 +41,7 @@ final query= MediaQuery.of(context);
         ChangeNotifierProvider(create: (context) => SliderProvider()),
         ChangeNotifierProvider(create: (context) => Ui()),
         ChangeNotifierProvider(create: (context) => ScanListProvider()),
+        ChangeNotifierProvider(create: (context) => ProducService()),
       ],
       child: MediaQuery(
         data: query.copyWith(textScaleFactor: query.textScaleFactor.clamp(0.8, 1.2)),

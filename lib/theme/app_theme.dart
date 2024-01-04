@@ -4,7 +4,7 @@ class AppTheme {
   //Theme Light
   static const Color lightPrimaryColorLight = Colors.black;
   static const Color lightPrimaryColor = Colors.purpleAccent;
-  static const Color lightscaffoldBackgroundColor = Colors.white;
+  static  Color? lightscaffoldBackgroundColor = Colors.grey[100];
 
   static final ThemeData lightTheme = ThemeData.light().copyWith(
     useMaterial3: true,
@@ -38,6 +38,7 @@ class AppTheme {
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(10), topRight: Radius.circular(10))),
     ),
+    
   );
 
 //Theme dark
