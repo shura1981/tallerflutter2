@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:taller2/src/productos/models/product.dart';
 
 class ProductCard extends StatelessWidget {
+  final Product product;
+
+  const ProductCard({required this.product});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -10,10 +15,14 @@ class ProductCard extends StatelessWidget {
         decoration: _cardBorders(),
         child: Stack(
           children: [
-            _BackgroundImage(),
-            Align(alignment: Alignment.bottomLeft, child: _ProductDetails()),
-            Align(alignment: Alignment.topRight, child: _PriceTag()),
-            Positioned(child: _NotAviable(), top: 0, left: 0)
+            _BackgroundImage(product.picture),
+            Align(
+                alignment: Alignment.bottomLeft,
+                child: _ProductDetails(name: product.name, id: product.id)),
+            Align(
+                alignment: Alignment.topRight, child: _PriceTag(product.price)),
+            if (!product.available)
+              Positioned(child: _NotAviable(), top: 0, left: 0)
           ],
         ));
   }
@@ -33,7 +42,6 @@ class ProductCard extends StatelessWidget {
 }
 
 class _NotAviable extends StatelessWidget {
- 
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,17 +65,21 @@ class _NotAviable extends StatelessWidget {
 }
 
 class _PriceTag extends StatelessWidget {
+  final double price;
+
+  const _PriceTag(this.price);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 100,
       height: 70,
       alignment: Alignment.center,
-      child: const FittedBox(
+      child: FittedBox(
         fit: BoxFit.contain,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Text('\$1.525.222',
+          child: Text('\$$price',
               style: TextStyle(color: Colors.white, fontSize: 20)),
         ),
       ),
@@ -80,6 +92,10 @@ class _PriceTag extends StatelessWidget {
 }
 
 class _ProductDetails extends StatelessWidget {
+  final String name;
+  final String id;
+
+  const _ProductDetails({required this.name, required this.id});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -91,9 +107,9 @@ class _ProductDetails extends StatelessWidget {
         decoration: _buildBoxDecoration(context),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text(
-              'Disco Duro',
+              name,
               style: TextStyle(
                   fontSize: 20,
                   color: Colors.white,
@@ -102,7 +118,7 @@ class _ProductDetails extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             Text(
-              'id: 123456789',
+              'id: $id',
               style: TextStyle(color: Colors.white),
             )
           ],
@@ -118,6 +134,10 @@ class _ProductDetails extends StatelessWidget {
 }
 
 class _BackgroundImage extends StatelessWidget {
+  final String? image;
+
+  const _BackgroundImage(this.image);
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -125,11 +145,15 @@ class _BackgroundImage extends StatelessWidget {
         height: 400,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(25),
-          child: FadeInImage(
+          child: image != null
+              ? FadeInImage(
             placeholder: AssetImage('assets/jar-loading.gif'),
-            image: NetworkImage('https://via.placeholder.com/400x300/f6f6f6'),
+            image:  NetworkImage(image!),
+            fit: BoxFit.contain,
+          ) : Image(
+            image: AssetImage('assets/no-image.png'),
             fit: BoxFit.cover,
-          ),
+          )
         ));
   }
 }

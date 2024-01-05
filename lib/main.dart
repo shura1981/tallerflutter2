@@ -44,7 +44,7 @@ final query= MediaQuery.of(context);
         ChangeNotifierProvider(create: (context) => ProducService()),
       ],
       child: MediaQuery(
-        data: query.copyWith(textScaleFactor: query.textScaleFactor.clamp(0.8, 1.2)),
+        data: query.copyWith(textScaleFactor: query.textScaleFactor.clamp(0.8, 1.2)), //para que no se vea tan grande cuando se cambia el tamaño de la letra o el tamaño de la pantalla
         child: MaterialAppWithTheme()),
     );
   }
