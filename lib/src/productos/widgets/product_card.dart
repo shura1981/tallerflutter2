@@ -103,7 +103,7 @@ class _ProductDetails extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         width: double.infinity,
-        height: 65,
+        height: 70,
         decoration: _buildBoxDecoration(context),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

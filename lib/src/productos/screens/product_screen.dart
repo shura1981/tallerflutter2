@@ -43,25 +43,47 @@ class _ProductScreenBody extends StatelessWidget {
     );
   }
 
+  _updateImage(BuildContext context, String value) {
+    productService.updateImage(value).then((value) {
+      productService.updateImageSelectedProduct(value);
+    }).catchError((onError) {
+      _mostrarAlerta(context, 'Error', 'No se pudo subir la imagen');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final productForm = Provider.of<ProductFormProvider>(context);
     return Scaffold(
       extendBodyBehindAppBar: false, //para que la appbar no se vea
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
         title: Text('Nuevo Producto'),
         actions: [
+          IconButton(
+            icon: Icon(
+              Icons.grid_view,
+            ),
+            onPressed: () {
+              CamaraService.getImgDevice(ImageSource.gallery).then((value) {
+                _updateImage(context, value);
+              }).catchError((onError) {
+                _mostrarAlerta(
+                    context, 'Error', 'No se pudo obtener la imagen');
+              });
+            },
+          ),
           IconButton(
             icon: Icon(
               Icons.camera_alt_outlined,
             ),
             onPressed: () {
               CamaraService.getImgDevice(ImageSource.camera).then((value) {
-                if (value != null) {
-                  print(value);
-                  // productService.selectedProduct!.picture = value;
-                }
+                _updateImage(context, value);
+              }).catchError((onError) {
+                _mostrarAlerta(
+                    context, 'Error', 'No se pudo obtener la imagen');
               });
             },
           )
@@ -90,7 +112,9 @@ class _ProductScreenBody extends StatelessWidget {
           FocusScope.of(context).unfocus();
           if (productForm.isValidForm()) {
             _showMyDialog(context);
-            productService.createProduct(productForm.product).then((value) {
+            productService
+                .createProductOrUpdate(productForm.product)
+                .then((value) {
               Navigator.of(context).pop();
               _mostrarAlerta(context, 'Exito', 'Producto creado correctamente');
             }).catchError((onError) {

@@ -18,17 +18,34 @@ class ProducService extends ChangeNotifier {
 
   Product? selectedProduct;
 
+  updateImageSelectedProduct(String value) {
+    selectedProduct!.picture = value;
+    notifyListeners();
+  }
+
   ProducService() {
     loadProducts();
   }
 
-  Future<bool> createProduct(Product product) async {
+  Future<bool> createProductOrUpdate(Product product) async {
     final url = Uri.parse('$_baseUrl/productos');
     final resp = await http.post(url,
         headers: headers, body: jsonEncode(product.toJson()));
     if (resp.statusCode == 200) {
       _actualizarProducto(product);
       return true;
+    }
+    throw Exception('Error al crear producto');
+  }
+
+  Future<String> updateImage(String imageBase64) async {
+    final url = Uri.parse('$_baseUrl/productos/subir-imagen');
+    final data = {'image': imageBase64};
+
+    final resp = await http.post(url, headers: headers, body: jsonEncode(data));
+    if (resp.statusCode == 201) {
+      final response = json.decode(resp.body);
+      return response['url'];
     }
     throw Exception('Error al crear producto');
   }

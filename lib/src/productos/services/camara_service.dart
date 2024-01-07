@@ -40,9 +40,9 @@ class CamaraService {
         maxHeight: 900,
         compressFormat:ImageCompressFormat.jpg,
         compressQuality: 30,
-        iosUiSettings:IOSUiSettings(title: "Edita Imagen",doneButtonTitle: "Aceptar",cancelButtonTitle: "Cancelar"),
+        iosUiSettings:IOSUiSettings(title: 'Edita Imagen',doneButtonTitle: 'Aceptar',cancelButtonTitle: 'Cancelar'),
         androidUiSettings: AndroidUiSettings(
-            toolbarTitle: "Edita Imagen",
+            toolbarTitle: 'Edita Imagen',
             toolbarColor: Colors.green,
             toolbarWidgetColor: Colors.white));
             
