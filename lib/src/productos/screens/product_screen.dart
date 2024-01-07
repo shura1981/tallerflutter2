@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:taller2/src/productos/providers/product_form_provider.dart';
+import 'package:taller2/src/productos/services/camara_service.dart';
 import 'package:taller2/src/productos/services/product_service.dart';
 import 'package:taller2/src/productos/widgets/widgets.dart';
 
@@ -26,8 +28,24 @@ class _ProductScreenBody extends StatelessWidget {
 
   final ProducService productService;
 
+  Future<void> _showMyDialog(context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return const AlertDialog(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            content: Center(
+              child: CircularProgressIndicator(),
+            ));
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final productForm = Provider.of<ProductFormProvider>(context);
     return Scaffold(
       extendBodyBehindAppBar: false, //para que la appbar no se vea
       appBar: AppBar(
@@ -38,7 +56,14 @@ class _ProductScreenBody extends StatelessWidget {
             icon: Icon(
               Icons.camera_alt_outlined,
             ),
-            onPressed: () {},
+            onPressed: () {
+              CamaraService.getImgDevice(ImageSource.camera).then((value) {
+                if (value != null) {
+                  print(value);
+                  // productService.selectedProduct!.picture = value;
+                }
+              });
+            },
           )
         ],
       ),
@@ -61,10 +86,43 @@ class _ProductScreenBody extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          FocusScope.of(context).unfocus();
+          if (productForm.isValidForm()) {
+            _showMyDialog(context);
+            productService.createProduct(productForm.product).then((value) {
+              Navigator.of(context).pop();
+              _mostrarAlerta(context, 'Exito', 'Producto creado correctamente');
+            }).catchError((onError) {
+              Navigator.of(context).pop();
+              _mostrarAlerta(context, 'Error', 'No se pudo crear el producto');
+            });
+          } else {
+            _mostrarAlerta(
+                context, 'Error', 'Por favor rellene todos los campos');
+          }
+        },
         child: const Icon(Icons.save_outlined),
       ),
     );
+  }
+
+  void _mostrarAlerta(BuildContext context, String s, String t) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(s),
+            content: Text(t),
+            actions: [
+              MaterialButton(
+                  child: Text('Ok'),
+                  elevation: 5,
+                  textColor: Colors.blue,
+                  onPressed: () => Navigator.pop(context))
+            ],
+          );
+        });
   }
 }
 
@@ -79,6 +137,8 @@ class _ProductForm extends StatelessWidget {
       margin: const EdgeInsets.only(top: 20),
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Form(
+        key: productForm.formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(
           children: [
             TextFormField(
@@ -99,7 +159,8 @@ class _ProductForm extends StatelessWidget {
             SizedBox(height: 30),
             TextFormField(
               initialValue: '${product.price}',
-              keyboardType: TextInputType.number,
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
               inputFormatters: [
                 //para que solo se pueda ingresar numeros
                 FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))

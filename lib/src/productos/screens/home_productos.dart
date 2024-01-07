@@ -35,7 +35,13 @@ class HomeProductosScreen extends StatelessWidget {
           itemCount: productService.products.length,
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            // generar un id para el producto
+            final id = UniqueKey().toString();
+            productService.selectedProduct = new Product(
+                available: false, name: '', price: 0, description: '', id: id);
+            Navigator.pushNamed(context, 'product');
+          },
           child: Icon(Icons.add),
         ));
   }

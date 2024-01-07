@@ -22,6 +22,41 @@ class ProducService extends ChangeNotifier {
     loadProducts();
   }
 
+  Future<bool> createProduct(Product product) async {
+    final url = Uri.parse('$_baseUrl/productos');
+    final resp = await http.post(url,
+        headers: headers, body: jsonEncode(product.toJson()));
+    if (resp.statusCode == 200) {
+      _actualizarProducto(product);
+      return true;
+    }
+    throw Exception('Error al crear producto');
+  }
+
+// crear método que reciba un producto y busque en la lista de productos por id y lo actualice
+  bool _actualizarProducto(Product product) {
+    bool actualizado = false;
+    final index = products
+        .indexWhere((element) => element.id == product.id); //declarativo
+    if (index != -1) {
+      products[index] = product;
+      actualizado = true;
+    } else {
+      products.add(product);
+    }
+    notifyListeners();
+
+    // for (int i = 0; i < products.length; i++) { //imperativo
+    //   if (products[i].id == product.id) {
+    //     products[i] = product;
+    //     actualizado = true;
+    //     notifyListeners();
+    //     break;
+    //   }
+    // }
+    return actualizado;
+  }
+
   Future<List<Product>> loadProducts() async {
     isLoading = true;
     notifyListeners();

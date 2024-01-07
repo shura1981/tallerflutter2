@@ -38,7 +38,8 @@ dependencies:
   google_maps_flutter: ^2.3.0
   graphic: ^2.2.0
   http: null
-  image_picker: null
+  image_picker: ^0.8.4
+  image_cropper: ^1.4.1
   intl: ^0.18.0
   location: ^4.4.0
   path_provider: ^2.0.11
