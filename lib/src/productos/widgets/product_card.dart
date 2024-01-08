@@ -49,7 +49,7 @@ class _NotAviable extends StatelessWidget {
       height: 70,
       alignment: Alignment.center,
       child: const FittedBox(
-        fit: BoxFit.contain,
+        fit: BoxFit.cover,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Text('No disponible',
@@ -149,7 +149,7 @@ class _BackgroundImage extends StatelessWidget {
               ? FadeInImage(
             placeholder: AssetImage('assets/jar-loading.gif'),
             image:  NetworkImage(image!),
-            fit: BoxFit.contain,
+            fit: BoxFit.cover,
           ) : Image(
             image: AssetImage('assets/no-image.png'),
             fit: BoxFit.cover,

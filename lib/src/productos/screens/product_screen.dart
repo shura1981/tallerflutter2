@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:taller2/src/productos/models/product.dart';
 import 'package:taller2/src/productos/providers/product_form_provider.dart';
 import 'package:taller2/src/productos/services/camara_service.dart';
 import 'package:taller2/src/productos/services/product_service.dart';
@@ -13,7 +14,7 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productService = Provider.of<ProducService>(context);
-
+     productService.clearSelectedProduct();
     //para que se pueda acceder a los datos del producto seleccionado
     return ChangeNotifierProvider(
         create: (_) => ProductFormProvider(productService.selectedProduct!),
@@ -45,15 +46,29 @@ class _ProductScreenBody extends StatelessWidget {
 
   _updateImage(BuildContext context, String value) {
     productService.updateImage(value).then((value) {
-      productService.updateImageSelectedProduct(value);
+      productService.selectedProduct!.picture = value;
+      _updateOrCreate(context);
     }).catchError((onError) {
       _mostrarAlerta(context, 'Error', 'No se pudo subir la imagen');
+    });
+  }
+
+  void _updateOrCreate(BuildContext context) {
+    productService
+        .createProductOrUpdate(productService.selectedProduct!)
+        .then((value) {
+      Navigator.of(context).pop();
+      _mostrarAlerta(context, 'Exito', 'Producto creado correctamente');
+    }).catchError((onError) {
+      Navigator.of(context).pop();
+      _mostrarAlerta(context, 'Error', 'No se pudo crear el producto');
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final productForm = Provider.of<ProductFormProvider>(context);
+
     return Scaffold(
       extendBodyBehindAppBar: false, //para que la appbar no se vea
       appBar: AppBar(
@@ -67,7 +82,7 @@ class _ProductScreenBody extends StatelessWidget {
             ),
             onPressed: () {
               CamaraService.getImgDevice(ImageSource.gallery).then((value) {
-                _updateImage(context, value);
+                productService.updateImageSelectedProductV2(value);
               }).catchError((onError) {
                 _mostrarAlerta(
                     context, 'Error', 'No se pudo obtener la imagen');
@@ -80,7 +95,8 @@ class _ProductScreenBody extends StatelessWidget {
             ),
             onPressed: () {
               CamaraService.getImgDevice(ImageSource.camera).then((value) {
-                _updateImage(context, value);
+                // _updateImage(context, value);
+                productService.updateImageSelectedProductV2(value);
               }).catchError((onError) {
                 _mostrarAlerta(
                     context, 'Error', 'No se pudo obtener la imagen');
@@ -97,6 +113,7 @@ class _ProductScreenBody extends StatelessWidget {
               children: [
                 ProductImage(
                   url: productService.selectedProduct!.picture,
+                  newPitureFile: productService.newPitureFile,
                 )
               ],
             ),
@@ -112,15 +129,13 @@ class _ProductScreenBody extends StatelessWidget {
           FocusScope.of(context).unfocus();
           if (productForm.isValidForm()) {
             _showMyDialog(context);
-            productService
-                .createProductOrUpdate(productForm.product)
-                .then((value) {
-              Navigator.of(context).pop();
-              _mostrarAlerta(context, 'Exito', 'Producto creado correctamente');
-            }).catchError((onError) {
-              Navigator.of(context).pop();
-              _mostrarAlerta(context, 'Error', 'No se pudo crear el producto');
-            });
+
+            if (productService.newPitureFile == null) {
+              _updateOrCreate(context);
+              return;
+            }
+
+            _updateImage(context, productService.imageBase64!);
           } else {
             _mostrarAlerta(
                 context, 'Error', 'Por favor rellene todos los campos');

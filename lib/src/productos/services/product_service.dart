@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:taller2/src/productos/models/product.dart';
 import 'package:http/http.dart' as http;
+import 'package:taller2/src/productos/services/camara_service.dart';
 
 class ProducService extends ChangeNotifier {
   final String _baseUrl =
@@ -18,8 +20,23 @@ class ProducService extends ChangeNotifier {
 
   Product? selectedProduct;
 
+  File? newPitureFile;
+  String? imageBase64;
+
   updateImageSelectedProduct(String value) {
     selectedProduct!.picture = value;
+    notifyListeners();
+  }
+
+  clearSelectedProduct() {
+    newPitureFile = null;
+    imageBase64 = null;
+  }
+
+  updateImageSelectedProductV2(ResponseCropperImage value) {
+    imageBase64 = value.img64;
+    selectedProduct!.picture = '';
+    newPitureFile = File.fromUri(Uri(path: value.file!.path));
     notifyListeners();
   }
 
@@ -45,6 +62,7 @@ class ProducService extends ChangeNotifier {
     final resp = await http.post(url, headers: headers, body: jsonEncode(data));
     if (resp.statusCode == 201) {
       final response = json.decode(resp.body);
+      clearSelectedProduct();
       return response['url'];
     }
     throw Exception('Error al crear producto');
@@ -62,15 +80,6 @@ class ProducService extends ChangeNotifier {
       products.add(product);
     }
     notifyListeners();
-
-    // for (int i = 0; i < products.length; i++) { //imperativo
-    //   if (products[i].id == product.id) {
-    //     products[i] = product;
-    //     actualizado = true;
-    //     notifyListeners();
-    //     break;
-    //   }
-    // }
     return actualizado;
   }
 

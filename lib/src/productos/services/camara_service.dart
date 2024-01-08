@@ -6,7 +6,7 @@ import 'dart:io';
 
 class CamaraService {
   
-  static Future<String> getImgDevice(ImageSource source) async {
+  static Future<ResponseCropperImage> getImgDevice(ImageSource source) async {
 
     try {
 
@@ -20,10 +20,8 @@ class CamaraService {
     if (pickedFile == null) {
       throw Exception('Cancelado por usuario');
     } else {
-      String img64 = (await _cropImage(pickedFile.path));
-      return img64;
+      return  (await _cropImage(pickedFile.path));
     }
-      
     } catch (e) {
       throw Exception('Cancelado por usuario');
     }
@@ -31,7 +29,7 @@ class CamaraService {
   }
 
   /// Crop Image
-  static Future<String> _cropImage(filePath) async {
+  static Future<ResponseCropperImage> _cropImage(filePath) async {
 
     
       File? file = await ImageCropper().cropImage(
@@ -48,9 +46,14 @@ class CamaraService {
             
          List<int> imageBytes = await file!.readAsBytes();
       String img64 = base64Encode(imageBytes);
-      return img64;
-      
-    
-
+      return ResponseCropperImage(img64: img64,file: file);
   }
+}
+
+
+class ResponseCropperImage{
+  final String? img64;
+  final File? file;
+
+  ResponseCropperImage({this.img64,this.file});
 }

@@ -69,6 +69,8 @@ class MaterialAppWithTheme extends StatelessWidget {
   }
 }
 
+
+
 registreLicence() {
   return LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('fonts/Lato/OFL.txt');

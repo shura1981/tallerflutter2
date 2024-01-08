@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class ProductImage extends StatelessWidget {
   final String? url;
-  const ProductImage({super.key, this.url});
+  final File? newPitureFile;
+  const ProductImage({super.key, this.url, this.newPitureFile});
 
   @override
   Widget build(BuildContext context) {
@@ -13,15 +16,7 @@ class ProductImage extends StatelessWidget {
       child: ClipRRect(
         // borderRadius: const BorderRadius.only(
         //     topLeft: Radius.circular(45), topRight: Radius.circular(45)),
-        child: url == null
-            ? const Image(
-                image: AssetImage('assets/no-image.png'),
-                fit: BoxFit.cover,
-              )
-            : FadeInImage(
-                fit: BoxFit.contain,
-                placeholder: AssetImage('assets/jar-loading.gif'),
-                image: NetworkImage(url!)),
+        child: _getImage(),
       ),
     );
   }
@@ -34,4 +29,29 @@ class ProductImage extends StatelessWidget {
         // borderRadius: BorderRadius.only(
         //     topLeft: Radius.circular(45), topRight: Radius.circular(45)),
       );
+
+  _getImage() {
+    print(url);
+    print(newPitureFile);
+
+    if (url == null) {
+      return const Image(
+        image: AssetImage('assets/no-image.png'),
+        fit: BoxFit.cover,
+      );
+    }
+
+    if (url!.startsWith('http')) {
+      return FadeInImage(
+          fit: BoxFit.cover,
+          placeholder: AssetImage('assets/jar-loading.gif'),
+          image: NetworkImage(url!));
+    }
+// convertir url de base64 a un File
+
+    return Image.file(
+      newPitureFile!,
+      fit: BoxFit.cover,
+    );
+  }
 }
