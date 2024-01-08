@@ -31,8 +31,13 @@ class ProductImage extends StatelessWidget {
       );
 
   _getImage() {
-    print(url);
-    print(newPitureFile);
+    
+    if (newPitureFile != null) {
+      return Image.file(
+        newPitureFile!,
+        fit: BoxFit.cover,
+      );
+    }
 
     if (url == null) {
       return const Image(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,7 +16,7 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productService = Provider.of<ProducService>(context);
-     productService.clearSelectedProduct();
+    productService.clearSelectedProduct();
     //para que se pueda acceder a los datos del producto seleccionado
     return ChangeNotifierProvider(
         create: (_) => ProductFormProvider(productService.selectedProduct!),
@@ -44,25 +46,23 @@ class _ProductScreenBody extends StatelessWidget {
     );
   }
 
-  _updateImage(BuildContext context, String value) {
-    productService.updateImage(value).then((value) {
+  _updateImage(BuildContext context, String value, File? file) {
+    productService.updateImageFile(file).then((value) {
       productService.selectedProduct!.picture = value;
       _updateOrCreate(context);
     }).catchError((onError) {
-      _mostrarAlerta(context, 'Error', 'No se pudo subir la imagen');
+      _mostrarAlerta(context, 'Error', onError.toString());
     });
   }
 
-  void _updateOrCreate(BuildContext context) {
-    productService
-        .createProductOrUpdate(productService.selectedProduct!)
-        .then((value) {
-      Navigator.of(context).pop();
+  void _updateOrCreate(BuildContext context) async {
+    final value = await productService
+        .createProductOrUpdate(productService.selectedProduct!);
+    if (value) {
       _mostrarAlerta(context, 'Exito', 'Producto creado correctamente');
-    }).catchError((onError) {
-      Navigator.of(context).pop();
+    } else {
       _mostrarAlerta(context, 'Error', 'No se pudo crear el producto');
-    });
+    }
   }
 
   @override
@@ -83,9 +83,6 @@ class _ProductScreenBody extends StatelessWidget {
             onPressed: () {
               CamaraService.getImgDevice(ImageSource.gallery).then((value) {
                 productService.updateImageSelectedProductV2(value);
-              }).catchError((onError) {
-                _mostrarAlerta(
-                    context, 'Error', 'No se pudo obtener la imagen');
               });
             },
           ),
@@ -97,9 +94,6 @@ class _ProductScreenBody extends StatelessWidget {
               CamaraService.getImgDevice(ImageSource.camera).then((value) {
                 // _updateImage(context, value);
                 productService.updateImageSelectedProductV2(value);
-              }).catchError((onError) {
-                _mostrarAlerta(
-                    context, 'Error', 'No se pudo obtener la imagen');
               });
             },
           )
@@ -125,23 +119,30 @@ class _ProductScreenBody extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          FocusScope.of(context).unfocus();
-          if (productForm.isValidForm()) {
-            _showMyDialog(context);
+        onPressed: !productService.isSaving
+            ? () {
+                FocusScope.of(context).unfocus();
+                if (productForm.isValidForm()) {
+                  // _showMyDialog(context);
 
-            if (productService.newPitureFile == null) {
-              _updateOrCreate(context);
-              return;
-            }
+                  if (productService.newPitureFile == null) {
+                    _updateOrCreate(context);
+                    return;
+                  }
 
-            _updateImage(context, productService.imageBase64!);
-          } else {
-            _mostrarAlerta(
-                context, 'Error', 'Por favor rellene todos los campos');
-          }
-        },
-        child: const Icon(Icons.save_outlined),
+                  _updateImage(context, productService.imageBase64!,
+                      productService.newPitureFile);
+                } else {
+                  _mostrarAlerta(
+                      context, 'Error', 'Por favor rellene todos los campos');
+                }
+              }
+            : null,
+        child: productService.isSaving
+            ? CircularProgressIndicator(
+                color: Colors.white,
+              )
+            : const Icon(Icons.save_outlined),
       ),
     );
   }
