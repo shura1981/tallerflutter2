@@ -16,11 +16,43 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productService = Provider.of<ProducService>(context);
-    productService.clearSelectedProduct();
+    // productService.clearSelectedProduct();˘
     //para que se pueda acceder a los datos del producto seleccionado
-    return ChangeNotifierProvider(
-        create: (_) => ProductFormProvider(productService.selectedProduct!),
-        child: _ProductScreenBody(productService: productService));
+    // widget que bloquea la salida de la pantalla
+
+    return WillPopScope(
+      onWillPop: () async {
+        
+        if (productService.newPitureFile != null &&
+            productService.isSaving == false) {
+// preguntar si esta seguro de salir porque se perderan los cambios
+          return await showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: const Text('¿Está seguro?'),
+                    content: const Text(
+                        'Si sale se perderán los cambios realizados'),
+                    actions: [
+                      TextButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: const Text('No')),
+                      TextButton(
+                          onPressed: () {
+                            productService.clearSelectedProduct();
+                            Navigator.of(context).pop(true);
+                          },
+                          child: const Text('Si')),
+                    ],
+                  ));
+        }
+
+        productService.clearSelectedProduct();
+        return true;
+      },
+      child: ChangeNotifierProvider(
+          create: (_) => ProductFormProvider(productService.selectedProduct!),
+          child: _ProductScreenBody(productService: productService)),
+    );
   }
 }
 
@@ -190,9 +222,9 @@ class _ProductForm extends StatelessWidget {
                 }
                 return null;
               },
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                   labelText: 'Nombre del producto',
-                  labelStyle: TextStyle(color: Colors.black),
+                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)))),
             ),
@@ -212,9 +244,9 @@ class _ProductForm extends StatelessWidget {
                   product.price = double.parse(value);
                 }
               },
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                   labelText: 'Precio del producto',
-                  labelStyle: TextStyle(color: Colors.black),
+                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)))),
             ),
@@ -235,9 +267,9 @@ class _ProductForm extends StatelessWidget {
                 }
                 return null;
               },
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                   labelText: 'Descripcion del producto',
-                  labelStyle: TextStyle(color: Colors.black),
+                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)))),
             ),

@@ -57,6 +57,11 @@ class _HomePageState extends State<HomePage> {
             ),
             onTap: () {
               print(item.route);
+              // if (item.route == 'login/productos') {
+              //   Navigator.pushReplacementNamed(context, item.route);
+              //   return;
+              // }
+
               Navigator.pushNamed(context, item.route, arguments: 'hola');
             },
           ),

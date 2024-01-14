@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:taller2/src/productos/screens/home_productos.dart';
+import 'package:taller2/src/productos/screens/login_screen.dart';
 import 'package:taller2/src/productos/screens/product_screen.dart';
+import 'package:taller2/src/productos/screens/registre_screen.dart';
+import 'package:taller2/src/productos/screens/validation_screen.dart';
 
 import '../disenos/pages/home.dart';
 import '../flutter_gallery/pages/pages.dart';
@@ -8,7 +11,7 @@ import '../models/menu_router.dart';
 import '../pages/pages.dart';
 import '../pages/streams.dart';
 import '../qr_map/pages/home.dart';
-import '../talleres/pages/pages.dart' show HomeTalleres;
+import '../talleres/pages/pages.dart' show HomeTalleres, LoginScreen;
 
 class AppRoute {
   static const initialRoute = '/';
@@ -103,10 +106,10 @@ class AppRoute {
         name: 'Stream',
         screen: StreamScreen()),
     MenuRouter(
-        route: 'productos',
-        icon: Icons.shop,
-        name: 'Productos',
-        screen: HomeProductosScreen()),
+        route: ValidationScreen.routeName,
+        icon: Icons.login,
+        name: 'Login Productos',
+        screen: ValidationScreen()),
   ];
   static Route<dynamic>? onGenerateRoute(RouteSettings setting) {
     return MaterialPageRoute(builder: (context) => AlertPage());
@@ -115,7 +118,13 @@ class AppRoute {
   static Map<String, Widget Function(BuildContext)> getRoutes() {
     Map<String, Widget Function(BuildContext)> routes = {};
     routes.addAll({'/': (BuildContext build) => HomePage()});
+    routes.addAll({'productos': (BuildContext build) => HomeProductosScreen()});
     routes.addAll({'product': (BuildContext build) => ProductScreen()});
+    routes
+        .addAll({'registre': (BuildContext build) => RegistreProductScreen()});
+    routes.addAll(
+        {'login/productos': (BuildContext build) => LoginProductScreen()});
+
     for (final item in menuOptions) {
       routes.addAll({item.route: (BuildContext build) => item.screen});
     }

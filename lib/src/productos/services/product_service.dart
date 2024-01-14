@@ -64,6 +64,7 @@ class ProducService extends ChangeNotifier {
         headers: headers, body: jsonEncode(product.toJson()));
     if (resp.statusCode == 200) {
       _actualizarProducto(product);
+      clearSelectedProduct();
       response = true;
     }
     isSavingProduct = false;

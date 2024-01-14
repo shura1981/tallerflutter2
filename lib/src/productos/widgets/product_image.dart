@@ -31,17 +31,9 @@ class ProductImage extends StatelessWidget {
       );
 
   _getImage() {
-    
     if (newPitureFile != null) {
       return Image.file(
         newPitureFile!,
-        fit: BoxFit.cover,
-      );
-    }
-
-    if (url == null) {
-      return const Image(
-        image: AssetImage('assets/no-image.png'),
         fit: BoxFit.cover,
       );
     }
@@ -52,10 +44,9 @@ class ProductImage extends StatelessWidget {
           placeholder: AssetImage('assets/jar-loading.gif'),
           image: NetworkImage(url!));
     }
-// convertir url de base64 a un File
-
-    return Image.file(
-      newPitureFile!,
+    
+    return const Image(
+      image: AssetImage('assets/no-image.png'),
       fit: BoxFit.cover,
     );
   }

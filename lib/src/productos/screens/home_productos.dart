@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taller2/src/productos/models/product.dart';
 import 'package:taller2/src/productos/screens/loading_screen.dart';
+import 'package:taller2/src/productos/services/authentication_service.dart';
 import 'package:taller2/src/productos/services/product_service.dart';
 import 'package:taller2/src/productos/widgets/widgets.dart';
 
@@ -19,6 +20,14 @@ class HomeProductosScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text('HomeProductosScreen'),
+          actions: [
+            IconButton(
+                onPressed: () async {
+               await AuthenticationService.logout();
+              Navigator.pushReplacementNamed(context, 'login/productos');
+                },
+                icon: Icon(Icons.logout))
+          ],
         ),
         body: ListView.builder(
           itemBuilder: (context, index) {
@@ -39,7 +48,12 @@ class HomeProductosScreen extends StatelessWidget {
             // generar un id para el producto
             final id = UniqueKey().toString();
             productService.selectedProduct = new Product(
-                available: false, name: '', price: 0, description: '', id: id);
+                picture: '',
+                available: false,
+                name: '',
+                price: 0,
+                description: '',
+                id: id);
             Navigator.pushNamed(context, 'product');
           },
           child: Icon(Icons.add),

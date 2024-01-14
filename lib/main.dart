@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:taller2/src/models/tab_qr_map.dart';
+import 'package:taller2/src/productos/providers/Notification_messenger_service.dart';
+import 'package:taller2/src/productos/providers/login_form_provider.dart';
 import 'package:taller2/src/productos/services/product_service.dart';
 
 // import 'src/models/heroes.dart';
@@ -43,6 +45,7 @@ final query= MediaQuery.of(context);
         ChangeNotifierProvider(create: (context) => Ui()),
         ChangeNotifierProvider(create: (context) => ScanListProvider()),
         ChangeNotifierProvider(create: (context) => ProducService()),
+        ChangeNotifierProvider(create: (context) => LoginFormProvider()),
       ],
       child: MediaQuery(
         data: query.copyWith(textScaleFactor: query.textScaleFactor.clamp(0.8, 1.2)), //para que no se vea tan grande cuando se cambia el tamaño de la letra o el tamaño de la pantalla
@@ -61,6 +64,7 @@ class MaterialAppWithTheme extends StatelessWidget {
     final _theme = Provider.of<ThemeChanger>(context);
     return MaterialApp(
         debugShowCheckedModeBanner: false,
+        scaffoldMessengerKey: NotificationMessengerService.messengerKey,
         theme: _theme.getTheme(),
         darkTheme: AppTheme.darkTheme,
         title: 'Componentes App',
