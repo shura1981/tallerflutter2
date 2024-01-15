@@ -14,6 +14,14 @@ class AuthenticationService {
         'Y2tfZGJjMDI5ZTA2ZWJmZTdmNjg5YjJmZTRiOGJkNzhjNWEyNzlhN2IxYjpjc180ODhjOTNjOTlhOTE3OTc4NzU4N2Y0NmIzYmIyNWZkYzNmYzdlZDBj',
   };
 
+static getHeaderJwt() async {
+    final token = await getToken();
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    };
+  }
+
   static Future<String> getToken() async {
     return await storage.read(key: keyNameJwt) ?? '';
   }
