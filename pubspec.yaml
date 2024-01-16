@@ -38,8 +38,8 @@ dependencies:
   google_maps_flutter: ^2.3.0
   graphic: ^2.2.0
   http: null
-  image_picker: ^0.8.4
   image_cropper: ^1.4.1
+  image_picker: ^0.8.4
   intl: ^0.18.0
   location: ^4.4.0
   path_provider: ^2.0.11
@@ -55,6 +55,28 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1  
+  
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/icon/icon.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/icon/icon_maskable.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/icon/icon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/icon/icon.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/icon/icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
