@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:taller2/src/qr_map/model/scandmodel.dart';
-export 'package:taller2/src/qr_map/model/scandmodel.dart';
+import 'package:taller_flutter/src/qr_map/model/scandmodel.dart';
+export 'package:taller_flutter/src/qr_map/model/scandmodel.dart';
 import 'package:path/path.dart' show join;
 
 class DBProvider {
@@ -24,8 +24,8 @@ class DBProvider {
   initDB() async {
     // Directory documentsDirectory = await getApplicationDocumentsDirectory();
     // final path = documentsDirectory.path + 'ScansDB.db';
-    final dbPath= await getDatabasesPath();
-    final path= join(dbPath, 'ScansDB.db');
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, 'ScansDB.db');
     print(path);
 
     return await openDatabase(path, version: 2, onOpen: (db) {},

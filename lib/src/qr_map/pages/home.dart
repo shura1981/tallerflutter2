@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:taller2/src/models/tab_qr_map.dart';
+import 'package:taller_flutter/src/models/tab_qr_map.dart';
 
 import '../../providers/scan_list_provider.dart';
 import '../widgets/custom_navigation.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taller2/src/productos/models/product.dart';
+import 'package:taller_flutter/src/productos/models/product.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -144,16 +144,16 @@ class _BackgroundImage extends StatelessWidget {
         width: double.infinity,
         height: 400,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(25),
-          child: image != null
-              ? FadeInImage(
-            placeholder: AssetImage('assets/jar-loading.gif'),
-            image:  NetworkImage(image!),
-            fit: BoxFit.contain,
-          ) : Image(
-            image: AssetImage('assets/no-image.png'),
-            fit: BoxFit.cover,
-          )
-        ));
+            borderRadius: BorderRadius.circular(25),
+            child: image != null
+                ? FadeInImage(
+                    placeholder: AssetImage('assets/jar-loading.gif'),
+                    image: NetworkImage(image!),
+                    fit: BoxFit.contain,
+                  )
+                : Image(
+                    image: AssetImage('assets/no-image.png'),
+                    fit: BoxFit.cover,
+                  )));
   }
 }

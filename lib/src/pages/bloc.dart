@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taller2/src/providers/productos_block.dart';
+import 'package:taller_flutter/src/providers/productos_block.dart';
 
 class Bloc extends StatefulWidget {
   Bloc({Key? key}) : super(key: key);
@@ -10,23 +10,22 @@ class Bloc extends StatefulWidget {
 
 class _BlocState extends State<Bloc> {
   final productosBloc = ProductosBlock();
-@override
+  @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     productosBloc.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: StreamBuilder<Object>(
-        stream: productosBloc.productosContador,
-        builder: (context, snapshot) {
-          return Text('Productos (${snapshot.data ?? 0})');
-        }
-      )),
+      appBar: AppBar(
+          title: StreamBuilder<Object>(
+              stream: productosBloc.productosContador,
+              builder: (context, snapshot) {
+                return Text('Productos (${snapshot.data ?? 0})');
+              })),
       body: StreamBuilder(
         stream: productosBloc.getProductos,
         builder: (_, AsyncSnapshot<List<String>> snapshot) {

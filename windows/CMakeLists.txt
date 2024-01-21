@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(taller2 LANGUAGES CXX)
+project(taller_flutter LANGUAGES CXX)
 
-set(BINARY_NAME "taller2")
+set(BINARY_NAME "taller_flutter")
 
 cmake_policy(SET CMP0063 NEW)
 

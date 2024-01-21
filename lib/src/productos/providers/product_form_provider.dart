@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taller2/src/productos/models/product.dart';
+import 'package:taller_flutter/src/productos/models/product.dart';
 
 class ProductFormProvider extends ChangeNotifier {
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();

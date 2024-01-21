@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:taller2/src/productos/screens/home_productos.dart';
-import 'package:taller2/src/productos/screens/login_screen.dart';
-import 'package:taller2/src/productos/screens/product_screen.dart';
-import 'package:taller2/src/productos/screens/registre_screen.dart';
-import 'package:taller2/src/productos/screens/validation_screen.dart';
+import 'package:taller_flutter/src/productos/screens/home_productos.dart';
+import 'package:taller_flutter/src/productos/screens/login_screen.dart';
+import 'package:taller_flutter/src/productos/screens/product_screen.dart';
+import 'package:taller_flutter/src/productos/screens/registre_screen.dart';
+import 'package:taller_flutter/src/productos/screens/validation_screen.dart';
 
 import '../disenos/pages/home.dart';
 import '../flutter_gallery/pages/pages.dart';
@@ -11,31 +11,31 @@ import '../models/menu_router.dart';
 import '../pages/pages.dart';
 import '../pages/streams.dart';
 import '../qr_map/pages/home.dart';
-import '../talleres/pages/pages.dart' show HomeTalleres, LoginScreen;
+// import '../talleres/pages/pages.dart' show HomeTalleres, LoginScreen;
 
 class AppRoute {
   static const initialRoute = '/';
   static final menuOptions = <MenuRouter>[
-    MenuRouter(
-        route: 'talleres',
-        icon: Icons.list,
-        name: 'Talleres',
-        screen: HomeTalleres()),
+    // MenuRouter(
+    //     route: 'talleres',
+    //     icon: Icons.list,
+    //     name: 'Talleres',
+    //     screen: HomeTalleres()),
     MenuRouter(
         route: 'disenos',
         icon: Icons.picture_in_picture,
         name: 'diseños',
         screen: HomeDisenos()),
-    MenuRouter(
-        route: 'alert',
-        icon: Icons.add_alert,
-        name: 'alert',
-        screen: AlertPage()),
-    MenuRouter(
-        route: 'qrmap',
-        icon: Icons.qr_code,
-        name: 'qr_map',
-        screen: QRMapScreen()),
+    // MenuRouter(
+    //     route: 'alert',
+    //     icon: Icons.add_alert,
+    //     name: 'alert',
+    //     screen: AlertPage()),
+    // MenuRouter(
+    //     route: 'qrmap',
+    //     icon: Icons.qr_code,
+    //     name: 'qr_map',
+    //     screen: QRMapScreen()),
     MenuRouter(
         route: 'avatar', icon: Icons.home, name: 'avatar', screen: Avatars()),
     MenuRouter(

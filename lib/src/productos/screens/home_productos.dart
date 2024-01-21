@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:taller2/src/productos/models/product.dart';
-import 'package:taller2/src/productos/services/authentication_service.dart';
-import 'package:taller2/src/productos/services/product_service.dart';
-import 'package:taller2/src/productos/widgets/widgets.dart';
+import 'package:taller_flutter/src/productos/models/product.dart';
+import 'package:taller_flutter/src/productos/services/authentication_service.dart';
+import 'package:taller_flutter/src/productos/services/product_service.dart';
+import 'package:taller_flutter/src/productos/widgets/widgets.dart';
 
 class HomeProductosScreen extends StatelessWidget {
   const HomeProductosScreen({Key? key}) : super(key: key);

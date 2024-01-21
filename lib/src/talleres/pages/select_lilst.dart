@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taller2/src/talleres/pages/widgets/list_search.dart';
-
+import 'package:taller_flutter/src/talleres/pages/widgets/list_search.dart';
 
 class SelectList extends StatefulWidget {
   SelectList({Key? key}) : super(key: key);
@@ -28,7 +27,7 @@ class _SelectListState extends State<SelectList> {
                       ListSearch(), // fullscreenDialog: true,
                 ),
               ).then((value) {
-                         if (value == null) return;
+                if (value == null) return;
                 setState(() {
                   title = value;
                 });

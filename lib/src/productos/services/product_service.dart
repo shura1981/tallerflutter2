@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:taller2/src/productos/models/product.dart';
+import 'package:taller_flutter/src/productos/models/product.dart';
 import 'package:http/http.dart' as http;
-import 'package:taller2/src/productos/services/authentication_service.dart';
-import 'package:taller2/src/productos/services/camara_service.dart';
+import 'package:taller_flutter/src/productos/services/authentication_service.dart';
+import 'package:taller_flutter/src/productos/services/camara_service.dart';
 
 class ProducService extends ChangeNotifier {
   final String _baseUrl = 'https://www.api.megaplexstars.com/api';

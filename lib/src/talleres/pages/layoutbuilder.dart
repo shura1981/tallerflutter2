@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taller2/src/utils/helper_layout.dart';
+import 'package:taller_flutter/src/utils/helper_layout.dart';
 
 class LayoutBuilderScreen extends StatelessWidget {
   const LayoutBuilderScreen({Key? key}) : super(key: key);

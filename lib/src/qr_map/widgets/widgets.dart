@@ -1,1 +1,1 @@
-export 'package:taller2/src/qr_map/widgets/scand_code.dart';
+export 'package:taller_flutter/src/qr_map/widgets/scand_code.dart';

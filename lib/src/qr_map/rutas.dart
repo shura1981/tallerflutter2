@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taller2/src/qr_map/pages/pages.dart';
+import 'package:taller_flutter/src/qr_map/pages/pages.dart';
 
 import '../models/menu_router.dart';
 

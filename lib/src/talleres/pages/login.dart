@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-import 'package:taller2/src/talleres/pages/palatte.dart';
-import 'package:taller2/src/talleres/pages/widgets/input_pass_login.dart';
+import 'package:taller_flutter/src/talleres/pages/palatte.dart';
+import 'package:taller_flutter/src/talleres/pages/widgets/input_pass_login.dart';
 
 import 'widgets/button_login.dart';
 import 'widgets/forgot_pass.dart';

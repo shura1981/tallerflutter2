@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:taller2/src/models/qr.dart';
-import 'package:taller2/src/qr_map/widgets/widgets.dart';
+import 'package:taller_flutter/src/models/qr.dart';
+import 'package:taller_flutter/src/qr_map/widgets/widgets.dart';
 
 import '../../providers/scan_list_provider.dart';
 import '../../utils/keyvaluesfromstring.dart';

@@ -1,12 +1,11 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:taller2/src/models/tab_qr_map.dart';
-import 'package:taller2/src/productos/providers/Notification_messenger_service.dart';
-import 'package:taller2/src/productos/providers/login_form_provider.dart';
-import 'package:taller2/src/productos/services/product_service.dart';
+import 'package:taller_flutter/src/models/tab_qr_map.dart';
+import 'package:taller_flutter/src/productos/providers/Notification_messenger_service.dart';
+import 'package:taller_flutter/src/productos/providers/login_form_provider.dart';
+import 'package:taller_flutter/src/productos/services/product_service.dart';
 
 // import 'src/models/heroes.dart';
 // import 'src/models/slider_provider.dart';
@@ -33,7 +32,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-final query= MediaQuery.of(context);
+    final query = MediaQuery.of(context);
 
     return MultiProvider(
       providers: [
@@ -48,8 +47,10 @@ final query= MediaQuery.of(context);
         ChangeNotifierProvider(create: (context) => LoginFormProvider()),
       ],
       child: MediaQuery(
-        data: query.copyWith(textScaleFactor: query.textScaleFactor.clamp(0.8, 1.2)), //para que no se vea tan grande cuando se cambia el tamaño de la letra o el tamaño de la pantalla
-        child: MaterialAppWithTheme()),
+          data: query.copyWith(
+              textScaleFactor: query.textScaleFactor.clamp(0.8,
+                  1.2)), //para que no se vea tan grande cuando se cambia el tamaño de la letra o el tamaño de la pantalla
+          child: MaterialAppWithTheme()),
     );
   }
 }
@@ -73,8 +74,6 @@ class MaterialAppWithTheme extends StatelessWidget {
         onGenerateRoute: AppRoute.onGenerateRoute);
   }
 }
-
-
 
 registreLicence() {
   return LicenseRegistry.addLicense(() async* {

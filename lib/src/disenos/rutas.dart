@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taller2/src/disenos/pages/pages.dart';
+import 'package:taller_flutter/src/disenos/pages/pages.dart';
 
 import '../models/menu_router.dart';
 

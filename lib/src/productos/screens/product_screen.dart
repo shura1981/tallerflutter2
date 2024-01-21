@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:taller2/src/productos/models/product.dart';
-import 'package:taller2/src/productos/providers/product_form_provider.dart';
-import 'package:taller2/src/productos/services/camara_service.dart';
-import 'package:taller2/src/productos/services/product_service.dart';
-import 'package:taller2/src/productos/widgets/widgets.dart';
+import 'package:taller_flutter/src/productos/models/product.dart';
+import 'package:taller_flutter/src/productos/providers/product_form_provider.dart';
+import 'package:taller_flutter/src/productos/services/camara_service.dart';
+import 'package:taller_flutter/src/productos/services/product_service.dart';
+import 'package:taller_flutter/src/productos/widgets/widgets.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({Key? key}) : super(key: key);
@@ -22,7 +22,6 @@ class ProductScreen extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        
         if (productService.newPitureFile != null &&
             productService.isSaving == false) {
 // preguntar si esta seguro de salir porque se perderan los cambios
@@ -244,7 +243,7 @@ class _ProductForm extends StatelessWidget {
                   product.price = double.parse(value);
                 }
               },
-              decoration:  InputDecoration(
+              decoration: InputDecoration(
                   labelText: 'Precio del producto',
                   labelStyle: TextStyle(color: Theme.of(context).primaryColor),
                   border: OutlineInputBorder(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:taller2/src/productos/providers/Notification_messenger_service.dart';
-import 'package:taller2/src/productos/providers/login_form_provider.dart';
-import 'package:taller2/src/productos/services/authentication_service.dart';
-import 'package:taller2/src/productos/ui/input_decorations.dart';
-import 'package:taller2/src/productos/widgets/auth_background.dart';
-import 'package:taller2/src/productos/widgets/card_container.dart';
+import 'package:taller_flutter/src/productos/providers/Notification_messenger_service.dart';
+import 'package:taller_flutter/src/productos/providers/login_form_provider.dart';
+import 'package:taller_flutter/src/productos/services/authentication_service.dart';
+import 'package:taller_flutter/src/productos/ui/input_decorations.dart';
+import 'package:taller_flutter/src/productos/widgets/auth_background.dart';
+import 'package:taller_flutter/src/productos/widgets/card_container.dart';
 
 class RegistreProductScreen extends StatelessWidget {
   @override
@@ -125,7 +125,8 @@ class _LoginForm extends StatelessWidget {
                         } catch (e) {
                           loginForm.isLoading = false;
                           print(e);
-                            NotificationMessengerService.showSnackBar(e.toString());
+                          NotificationMessengerService.showSnackBar(
+                              e.toString());
                           // ScaffoldMessenger.of(context).showSnackBar(
                           //     SnackBar(content: Text(e.toString())));
                         }

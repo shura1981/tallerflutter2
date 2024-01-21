@@ -1,6 +1,6 @@
 {
-    "name": "taller2",
-    "short_name": "taller2",
+    "name": "taller_flutter",
+    "short_name": "taller_flutter",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#hexcode",

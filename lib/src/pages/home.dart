@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:taller2/src/providers/menu_provider.dart';
-import 'package:taller2/src/utils/parseIcons.dart';
+import 'package:taller_flutter/src/providers/menu_provider.dart';
+import 'package:taller_flutter/src/utils/parseIcons.dart';
 
 import '../../theme/app_theme.dart';
 import '../models/themechanger.dart';
