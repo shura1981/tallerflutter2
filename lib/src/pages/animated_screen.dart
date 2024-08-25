@@ -22,7 +22,7 @@ class _AnimatedScreenState extends State<AnimatedScreen> {
           width: _width,
           height: _height,
           decoration:
-              BoxDecoration(borderRadius: _borderRadius, color: Colors.red),
+              BoxDecoration(borderRadius: _borderRadius, color: _color),
                duration: const Duration(milliseconds: 400),
                curve: Curves.easeOutCubic,
         ),
