@@ -22,13 +22,13 @@ class _InfinityScrollState extends State<InfinityScroll> {
   ScrollController? controller = new ScrollController();
   int page = 1;
 
-  // @override
-  // void setState(VoidCallback fn) {
-  //   // TODO: implement setState
-  //   if (mounted) {
-  //     super.setState(fn);
-  //   }
-  // }
+  @override
+  void setState(VoidCallback fn) {
+    // TODO: implement setState
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
 
   @override
   void initState() {

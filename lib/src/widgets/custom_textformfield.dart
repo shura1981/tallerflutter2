@@ -73,18 +73,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      focusNode: myFocusNode,
-      onTap: _requestFocus,
-      autofocus: widget.autofocus,
-      keyboardType: widget.textInputType,
-      obscureText: widget.obscureText,
-      initialValue: widget.initialValue,
-      textCapitalization: TextCapitalization.words,
-      onChanged: widget.onChanged,
-      validator: widget.validator,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      decoration: InputDecoration(
+    var inputDecoration = InputDecoration(
         hintText: widget.labelText,
         labelText: widget.labelText,
         labelStyle: TextStyle(
@@ -111,7 +100,20 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 color: myFocusNode.hasFocus
                     ? Theme.of(context).primaryColor
                     : Colors.grey),
-      ),
+      );
+    return TextFormField(
+      focusNode: myFocusNode,
+      onTap: _requestFocus,
+      autofocus: widget.autofocus,
+      keyboardType: widget.textInputType,
+      obscureText: widget.obscureText,
+      initialValue: widget.initialValue,
+      textCapitalization: TextCapitalization.words,
+      onChanged: widget.onChanged,
+      validator: widget.validator,
+      onTapOutside: (event) => myFocusNode.unfocus(),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      decoration: inputDecoration,
     );
   }
 }

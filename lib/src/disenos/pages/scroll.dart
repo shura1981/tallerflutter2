@@ -108,7 +108,7 @@ class Page2 extends StatelessWidget {
       child: Center(
           child: TextButton(
         onPressed: () {},
-        style: TextButton.styleFrom(backgroundColor: Color(0xff0098FA)),
+        // style: TextButton.styleFrom(backgroundColor: Color(0xff0098FA)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
           child: Text(

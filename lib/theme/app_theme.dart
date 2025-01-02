@@ -10,18 +10,23 @@ class AppTheme {
     useMaterial3: true,
     primaryColor: lightPrimaryColor,
     primaryColorLight: lightPrimaryColorLight,
-    appBarTheme: AppBarTheme(color: lightPrimaryColor, elevation: 0, foregroundColor: lightscaffoldBackgroundColor),
-    scaffoldBackgroundColor: lightscaffoldBackgroundColor,
-    textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(foregroundColor: lightPrimaryColor)),
+    colorScheme: ColorScheme.fromSeed(seedColor: Colors.purpleAccent),
+    // appBarTheme: AppBarTheme(color: lightPrimaryColor, elevation: 0, foregroundColor: lightscaffoldBackgroundColor),
+    // scaffoldBackgroundColor: lightscaffoldBackgroundColor,
+    // textButtonTheme: TextButtonThemeData(
+    //     style: TextButton.styleFrom(foregroundColor: lightPrimaryColor)),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: lightPrimaryColor, elevation: 5),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: lightPrimaryColor,
-            shape: const StadiumBorder(),
-            elevation: 0)),
+        // backgroundColor: lightPrimaryColor, 
+        elevation: 5,
+        enableFeedback: true,
+        ),
+    // elevatedButtonTheme: ElevatedButtonThemeData(
+    //     style: ElevatedButton.styleFrom(
+    //         // backgroundColor: lightPrimaryColor,
+    //         shape: const StadiumBorder(),
+    //         elevation: 0)),
     inputDecorationTheme: InputDecorationTheme(
+
       focusColor: Colors.white,
       filled: true,
       fillColor: Colors.grey.shade200,

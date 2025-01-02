@@ -17,10 +17,10 @@ class CardTable extends StatelessWidget {
           ),
           _SingleCard(
             icon: Icons.find_in_page,
-             colorIcon: Colors.yellow,
+            colorIcon: Colors.yellow,
           )
         ]),
-             TableRow(children: [
+        TableRow(children: [
           _SingleCard(
             icon: Icons.abc_sharp,
             colorIcon: Colors.yellow,
@@ -28,10 +28,10 @@ class CardTable extends StatelessWidget {
           ),
           _SingleCard(
             icon: Icons.find_in_page,
-             colorIcon: Colors.yellow,
+            colorIcon: Colors.yellow,
           )
         ]),
-             TableRow(children: [
+        TableRow(children: [
           _SingleCard(
             icon: Icons.abc_sharp,
             colorIcon: Colors.yellow,
@@ -39,7 +39,7 @@ class CardTable extends StatelessWidget {
           ),
           _SingleCard(
             icon: Icons.find_in_page,
-             colorIcon: Colors.yellow,
+            colorIcon: Colors.yellow,
           )
         ]),
       ],
@@ -58,34 +58,37 @@ class _SingleCard extends StatelessWidget {
     return Container(
       height: 180,
       margin: EdgeInsets.all(15),
-     
       child: ClipRRect(
-         borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
           child: Container(
-             decoration: BoxDecoration(
-         borderRadius: BorderRadius.circular(20),
-          color: Color.fromRGBO(62, 66, 107, 0.653),
-         ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color.fromRGBO(62, 66, 107, 0.653),
+            ),
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                  onTap: tap,
+                onTap: tap,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       padding: EdgeInsets.all(5),
-                      child: Icon(icon, color:Color.fromRGBO(62, 66, 107, 1), size: 40,),
-                        decoration: BoxDecoration(
+                      child: Icon(
+                        icon,
+                        color: Color.fromRGBO(62, 66, 107, 1),
+                        size: 40,
+                      ),
+                      decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: const [Colors.red, Colors.orange],
-                        )),
-                        ),
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: const [Colors.red, Colors.orange],
+                          )),
+                    ),
                     SizedBox(height: 10),
                     Text(
                       'General',
